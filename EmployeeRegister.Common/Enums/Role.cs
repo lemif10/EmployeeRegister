@@ -1,6 +1,6 @@
 ﻿namespace EmployeeRegister.Common.Enums
 {
-    public enum RoleStatus
+    public enum Role
     {
         Visitor,
         Editor,
