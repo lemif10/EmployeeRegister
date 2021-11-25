@@ -8,8 +8,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.DataAccess
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Common", "EmployeeRegister.Common\EmployeeRegister.Common.csproj", "{9FF7EC54-9B44-4AFD-A86F-6E016D5A15F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Repository", "EmployeeRegister.Repository\EmployeeRegister.Repository.csproj", "{F9CCD233-0317-4324-B4A1-527DA9E4E79B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Dependencies", "EmployeeRegister.Dependencies\EmployeeRegister.Dependencies.csproj", "{D8B67454-1D07-4C69-8C03-5D699E7F1699}"
 EndProject
 Global
@@ -34,10 +32,6 @@ Global
 		{9FF7EC54-9B44-4AFD-A86F-6E016D5A15F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FF7EC54-9B44-4AFD-A86F-6E016D5A15F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FF7EC54-9B44-4AFD-A86F-6E016D5A15F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F9CCD233-0317-4324-B4A1-527DA9E4E79B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F9CCD233-0317-4324-B4A1-527DA9E4E79B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F9CCD233-0317-4324-B4A1-527DA9E4E79B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F9CCD233-0317-4324-B4A1-527DA9E4E79B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D8B67454-1D07-4C69-8C03-5D699E7F1699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D8B67454-1D07-4C69-8C03-5D699E7F1699}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8B67454-1D07-4C69-8C03-5D699E7F1699}.Release|Any CPU.ActiveCfg = Release|Any CPU

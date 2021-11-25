@@ -40,6 +40,9 @@
     <ItemGroup>
         <Compile Include="Enums\FamilyStatus.cs" />
         <Compile Include="Enums\Role.cs" />
+        <Compile Include="Models\Contact.cs" />
+        <Compile Include="Models\Department.cs" />
+        <Compile Include="Models\Employee.cs" />
         <Compile Include="Models\User.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
