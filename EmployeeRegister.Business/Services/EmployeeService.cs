@@ -7,11 +7,11 @@ namespace EmployeeRegister.Business.Services
 {
     public class EmployeeService : IExtendedServiceData
     {
-        
+        private readonly EmployeeRepository _employeeRepository;
         
         public EmployeeService()
         {
-            
+            _employeeRepository = new EmployeeRepository();
         }
         
         public void Add()
@@ -36,7 +36,7 @@ namespace EmployeeRegister.Business.Services
 
         public List<T> Index<T>()
         {
-           
+            return _employeeRepository.Index<T>();
         }
     }
 }

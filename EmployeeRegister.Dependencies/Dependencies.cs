@@ -8,7 +8,7 @@ namespace EmployeeRegister.Dependencies
     {
         public static void GetConnectionSettings(this IServiceCollection services,IConfiguration configuration)
         {
-            
+            services.AddSingleton(ConnectionSettings.ConnectionString = configuration.GetConnectionString("DefaultConnection"));
         }
     }
 }

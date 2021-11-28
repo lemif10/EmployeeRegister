@@ -1,21 +1,24 @@
 ﻿using EmployeeRegister.Business.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using EmployeeRegister.Common.Models;
 
 namespace EmployeeRegister.Controllers
 {
     public class EmployeeController : Controller
     {
+        private readonly EmployeeService _employeeService;
         private readonly ILogger<EmployeeController> _logger;
 
         public EmployeeController(ILogger<EmployeeController> logger)
         {
+            _employeeService = new EmployeeService();
             _logger = logger;
         }
         
         public IActionResult Index()
         {
-            return View();
+            return View(_employeeService.Index<Employee>());
         }
         
         public IActionResult Search()
