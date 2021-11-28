@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.DataAccessLayer.Repository;
 
@@ -8,6 +7,8 @@ namespace EmployeeRegister.Business.Services
 {
     public class EmployeeService : IExtendedServiceData
     {
+        
+        
         public EmployeeService()
         {
             
@@ -33,9 +34,9 @@ namespace EmployeeRegister.Business.Services
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Employee> Index()
+        public List<T> Index<T>()
         {
-            throw new NotImplementedException();
+           
         }
     }
 }
