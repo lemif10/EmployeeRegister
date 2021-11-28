@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("EmployeeRegister.Repository")]
+[assembly: AssemblyTitle("EmployeeRegister.DataAccessLayer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("EmployeeRegister.Repository")]
+[assembly: AssemblyProduct("EmployeeRegister.DataAccessLayer")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("F9CCD233-0317-4324-B4A1-527DA9E4E79B")]
+[assembly: Guid("A44CCF2A-1C75-4C1A-9230-A93C5822225E")]
 
 // Version information for an assembly consists of the following four values:
 //

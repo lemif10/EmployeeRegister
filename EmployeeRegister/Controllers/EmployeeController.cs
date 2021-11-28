@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EmployeeRegister.Business.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace EmployeeRegister.Controllers
@@ -11,7 +12,7 @@ namespace EmployeeRegister.Controllers
         {
             _logger = logger;
         }
-
+        
         public IActionResult Index()
         {
             return View();
@@ -42,4 +43,5 @@ namespace EmployeeRegister.Controllers
             return View();
         }
     }
+    
 }

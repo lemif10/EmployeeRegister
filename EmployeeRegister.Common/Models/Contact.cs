@@ -1,4 +1,4 @@
-﻿namespace EmployeeRegister.DataAccess.Models
+﻿namespace EmployeeRegister.Common.Models
 {
     public class Contact
     {

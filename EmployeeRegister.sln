@@ -4,11 +4,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister", "Employe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Business", "EmployeeRegister.Business\EmployeeRegister.Business.csproj", "{2D67BE26-4658-436A-8F5F-EBEB65121FE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.DataAccess", "EmployeeRegister.DataAccess\EmployeeRegister.DataAccess.csproj", "{FFCC9DB1-FE83-468A-BC65-6822AC390560}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Common", "EmployeeRegister.Common\EmployeeRegister.Common.csproj", "{9FF7EC54-9B44-4AFD-A86F-6E016D5A15F3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.Dependencies", "EmployeeRegister.Dependencies\EmployeeRegister.Dependencies.csproj", "{D8B67454-1D07-4C69-8C03-5D699E7F1699}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeRegister.DataAccessLayer", "EmployeeRegister.DataAccessLayer\EmployeeRegister.DataAccessLayer.csproj", "{A44CCF2A-1C75-4C1A-9230-A93C5822225E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,10 +24,6 @@ Global
 		{2D67BE26-4658-436A-8F5F-EBEB65121FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D67BE26-4658-436A-8F5F-EBEB65121FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D67BE26-4658-436A-8F5F-EBEB65121FE3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FFCC9DB1-FE83-468A-BC65-6822AC390560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FFCC9DB1-FE83-468A-BC65-6822AC390560}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FFCC9DB1-FE83-468A-BC65-6822AC390560}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FFCC9DB1-FE83-468A-BC65-6822AC390560}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FF7EC54-9B44-4AFD-A86F-6E016D5A15F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FF7EC54-9B44-4AFD-A86F-6E016D5A15F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FF7EC54-9B44-4AFD-A86F-6E016D5A15F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -36,5 +32,9 @@ Global
 		{D8B67454-1D07-4C69-8C03-5D699E7F1699}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8B67454-1D07-4C69-8C03-5D699E7F1699}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8B67454-1D07-4C69-8C03-5D699E7F1699}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A44CCF2A-1C75-4C1A-9230-A93C5822225E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A44CCF2A-1C75-4C1A-9230-A93C5822225E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A44CCF2A-1C75-4C1A-9230-A93C5822225E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A44CCF2A-1C75-4C1A-9230-A93C5822225E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,4 @@
-﻿namespace EmployeeRegister.DataAccess.Models
+﻿namespace EmployeeRegister.Common.Models
 {
     public class Employee
     {
@@ -9,7 +9,7 @@
         public int DepartmentId { get; set; }
         
         public int ContactId { get; set; }
-        
+
         public string Address { get; set; }
         
         public int FamilyStatus { get; set; }
