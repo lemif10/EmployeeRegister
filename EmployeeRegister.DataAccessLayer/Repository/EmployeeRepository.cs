@@ -2,11 +2,21 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using EmployeeRegister.Common.Models;
+using EmployeeRegister.DataAccessLayer.Connection;
 
 namespace EmployeeRegister.DataAccessLayer.Repository
 {
     public class EmployeeRepository : IExtendedRepository
     {
+        private ContactRepository _contactRepository;
+        private DepartmentRepository _departmentRepository;
+        
+        public EmployeeRepository()
+        {
+            _contactRepository = new ContactRepository();
+            _departmentRepository = new DepartmentRepository();
+        }
+        
         public void Create<T>(T model)
         {
             throw new NotImplementedException();
@@ -24,12 +34,12 @@ namespace EmployeeRegister.DataAccessLayer.Repository
 
         public List<T> Index<T>()
         {
-            IList<Employee> employees = new List<Employee>();
+            IList<EmployeeViewModel> employees = new List<EmployeeViewModel>();
 
             using (var connection = new SqlConnection(ConnectionSettings.ConnectionString))
             {
                 var query =
-                    "SELECT Id, FullName, DepartmentId, ContactId, Address, FamilyStatus, WorkExperience, Photo, Salary FROM Employees";
+                    "SELECT Id, FullName, ContactId, DepartmentId, Address, FamilyStatus, WorkExperience, Photo, Salary FROM Employees";
 
                 var command = new SqlCommand(query, connection);
 
@@ -41,16 +51,16 @@ namespace EmployeeRegister.DataAccessLayer.Repository
                     {
                         while (reader.Read())
                         {
-                            employees.Add(new Employee
+                            employees.Add(new EmployeeViewModel()
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 FullName = reader["FullName"].ToString(),
-                                DepartmentId = Convert.ToInt32(reader["DepartmentId"]),
-                                ContactId = Convert.ToInt32(reader["ContactId"]),
                                 Address = reader["Address"].ToString(),
                                 FamilyStatus = Convert.ToInt32(reader["FamilyStatus"]),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
-                                Salary = Convert.ToDecimal(reader["Salary"])
+                                Salary = Convert.ToDecimal(reader["Salary"]),
+                                Contact = _contactRepository.Index(Convert.ToInt32(reader["ContactId"])),
+                                Department = _departmentRepository.Index(Convert.ToInt32(reader["DepartmentId"]))
                             });
                         }
                     }

@@ -18,7 +18,7 @@ namespace EmployeeRegister.Controllers
         
         public IActionResult Index()
         {
-            return View(_employeeService.Index<Employee>());
+            return View(_employeeService.Index<EmployeeViewModel>());
         }
         
         public IActionResult Search()

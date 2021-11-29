@@ -1,4 +1,4 @@
-﻿using EmployeeRegister.DataAccessLayer.Repository;
+﻿using EmployeeRegister.DataAccessLayer.Connection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

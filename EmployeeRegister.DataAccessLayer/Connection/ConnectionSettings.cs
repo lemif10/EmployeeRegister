@@ -1,4 +1,4 @@
-namespace EmployeeRegister.DataAccessLayer.Repository
+namespace EmployeeRegister.DataAccessLayer.Connection
 {
     public static class ConnectionSettings
     {

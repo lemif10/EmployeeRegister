@@ -38,8 +38,8 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Connection\ConnectionSettings.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Repository\ConnectionSettings.cs" />
         <Compile Include="Repository\ContactRepository.cs" />
         <Compile Include="Repository\DepartmentRepository.cs" />
         <Compile Include="Repository\EmployeeRepository.cs" />

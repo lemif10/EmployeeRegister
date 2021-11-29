@@ -1,5 +1,31 @@
-﻿@{
+﻿@using EmployeeRegister.Common.Models;
+@model List<EmployeeViewModel>;
+
+@{
     ViewData["Title"] = "Register";
 }
 
-<p>реестр данных</p>
+<h3>Employees</h3>
+
+<table class="table">
+    <tr>
+        <th>Full Name</th>
+        <th>Department</th>
+        <th>Phone Number</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact.PhoneNumber)
+            </td>
+            
+        </tr>
+    }
+</table>
