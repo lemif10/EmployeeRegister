@@ -8,17 +8,20 @@ namespace EmployeeRegister.Business.Services
     public class EmployeeService : IExtendedServiceData
     {
         private readonly EmployeeRepository _employeeRepository;
-        private readonly ContactRepository _contactRepository;
-        
+
         public EmployeeService()
         {
             _employeeRepository = new EmployeeRepository();
-            _contactRepository = new ContactRepository();
         }
         
         public void Add()
         {
             throw new NotImplementedException();
+        }
+
+        public EmployeeViewModel Get(int id)
+        {
+            return _employeeRepository.Get(id);
         }
 
         public void Create()
@@ -38,8 +41,6 @@ namespace EmployeeRegister.Business.Services
 
         public List<T> Index<T>()
         {
-            List<EmployeeViewModel> employeeViewModel= new List<EmployeeViewModel>();
-
             return _employeeRepository.Index<T>();
         }
     }

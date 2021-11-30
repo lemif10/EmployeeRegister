@@ -12,7 +12,7 @@ namespace EmployeeRegister.Common.Models
 
         public string Address { get; set; }
         
-        public int FamilyStatus { get; set; }
+        public string FamilyStatus { get; set; }
 
         public decimal WorkExperience { get; set; }
         

@@ -36,9 +36,9 @@ namespace EmployeeRegister.Controllers
             return View();
         }
         
-        public IActionResult Details()
+        public IActionResult Details(int id)
         {
-            return View();
+            return View(_employeeService.Get(id));
         }
         
         public IActionResult Edit()

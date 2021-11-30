@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.DataAccessLayer.Connection;
 
@@ -32,6 +34,48 @@ namespace EmployeeRegister.DataAccessLayer.Repository
             throw new NotImplementedException();
         }
 
+        public EmployeeViewModel Get(int id)
+        {
+            using (var connection = new SqlConnection(ConnectionSettings.ConnectionString))
+            {
+                var query =
+                    "SELECT * FROM Employees WHERE Id = @Id";
+
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
+                {
+                    Value = id
+                });
+                
+                command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            return new EmployeeViewModel
+                            {
+                                Id = Convert.ToInt32(reader["Id"]),
+                                FullName = reader["FullName"].ToString(),
+                                Address = reader["Address"].ToString(),
+                                FamilyStatus = ((FamilyStatus) Convert.ToInt32(reader["FamilyStatus"])).ToString(),
+                                WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
+                                Salary = Convert.ToDecimal(reader["Salary"]),
+                                Contact = _contactRepository.Index(Convert.ToInt32(reader["ContactId"])),
+                                Department = _departmentRepository.Index(Convert.ToInt32(reader["DepartmentId"]))
+                            };
+                        }
+                    }
+                }
+            }
+
+            return new EmployeeViewModel();
+        }
+        
+        
         public List<T> Index<T>()
         {
             IList<EmployeeViewModel> employees = new List<EmployeeViewModel>();
@@ -39,7 +83,7 @@ namespace EmployeeRegister.DataAccessLayer.Repository
             using (var connection = new SqlConnection(ConnectionSettings.ConnectionString))
             {
                 var query =
-                    "SELECT Id, FullName, ContactId, DepartmentId, Address, FamilyStatus, WorkExperience, Photo, Salary FROM Employees";
+                    "SELECT * FROM Employees";
 
                 var command = new SqlCommand(query, connection);
 
@@ -56,7 +100,7 @@ namespace EmployeeRegister.DataAccessLayer.Repository
                                 Id = Convert.ToInt32(reader["Id"]),
                                 FullName = reader["FullName"].ToString(),
                                 Address = reader["Address"].ToString(),
-                                FamilyStatus = Convert.ToInt32(reader["FamilyStatus"]),
+                                FamilyStatus = ((FamilyStatus)Convert.ToInt32(reader["FamilyStatus"])).ToString(),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
                                 Salary = Convert.ToDecimal(reader["Salary"]),
                                 Contact = _contactRepository.Index(Convert.ToInt32(reader["ContactId"])),
