@@ -4,14 +4,18 @@
 @{
     ViewData["Title"] = "Details";
 }
+
 <h2>Personal Info</h2>
 <p> Full name: @Html.ViewData.Model.FullName</p>
 <p> Address: @Html.ViewData.Model.Address</p>
 <p> Family status: @Html.ViewData.Model.FamilyStatus</p>
-<p> Worr experience: @Html.ViewData.Model.WorkExperience</p>
+<p> Work experience: @Html.ViewData.Model.WorkExperience</p>
+<p> Work experience: @Html.ViewData.Model.Salary</p>
+
 <h2>Contacts</h2>
 <p> Phone number: @Html.ViewData.Model.Contact.PhoneNumber</p>
 <p> Email: @Html.ViewData.Model.Contact.Email</p>
+
 <h2>Department</h2>
 <p> Name: @Html.ViewData.Model.Department.Name</p>
 <p> Address: @Html.ViewData.Model.Department.Address</p>

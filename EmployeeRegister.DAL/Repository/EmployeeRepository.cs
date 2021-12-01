@@ -4,24 +4,68 @@ using System.Data;
 using System.Data.SqlClient;
 using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
-using EmployeeRegister.DataAccessLayer.Connection;
+using EmployeeRegister.DAL.Connection;
 
-namespace EmployeeRegister.DataAccessLayer.Repository
+namespace EmployeeRegister.DAL.Repository
 {
-    public class EmployeeRepository : IExtendedRepository
+    public class EmployeeRepository
     {
-        private ContactRepository _contactRepository;
-        private DepartmentRepository _departmentRepository;
-        
-        public EmployeeRepository()
+        private readonly ConnectionSettings _connectionSettings;
+        private readonly ContactRepository _contactRepository;
+        private readonly DepartmentRepository _departmentRepository;
+
+        public EmployeeRepository(ConnectionSettings connectionSettings)
         {
-            _contactRepository = new ContactRepository();
-            _departmentRepository = new DepartmentRepository();
+            _connectionSettings = connectionSettings;
+            _contactRepository = new ContactRepository(_connectionSettings);
+            _departmentRepository = new DepartmentRepository(_connectionSettings);
         }
         
-        public void Create<T>(T model)
+        public void Create(Employee model)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
+            {
+                var query = 
+                    "INSERT INTO Employees (FullName, DepartmentId, Address, FamilyStatus, WorkExperience, Salary) VALUES (@FullName, @DepartmentId, @Address, @FamilyStatus, @WorkExperience, @Salary)";
+
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("FullName", SqlDbType.Text)
+                {
+                    Value = model.FullName
+                });
+                
+                command.Parameters.Add(new SqlParameter("DepartmentId", SqlDbType.Int)
+                {
+                    Value = model.DepartmentId
+                });
+                
+                command.Parameters.Add(new SqlParameter("Address", SqlDbType.Text)
+                {
+                    Value = model.Address
+                });
+                
+                command.Parameters.Add(new SqlParameter("FamilyStatus", SqlDbType.Int)
+                {
+                    Value = model.FamilyStatus
+                });
+                
+                command.Parameters.Add(new SqlParameter("WorkExperience", SqlDbType.Decimal)
+                {
+                    Value = model.WorkExperience
+                });
+                
+                command.Parameters.Add(new SqlParameter("Salary", SqlDbType.Decimal)
+                {
+                    Value = model.Salary
+                });
+                
+                command.Connection.Open();
+
+                command.ExecuteNonQuery();
+                
+                command.Connection.Close();
+            }
         }
 
         public void Edit(int id)
@@ -36,7 +80,7 @@ namespace EmployeeRegister.DataAccessLayer.Repository
 
         public EmployeeViewModel Get(int id)
         {
-            using (var connection = new SqlConnection(ConnectionSettings.ConnectionString))
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
                     "SELECT * FROM Employees WHERE Id = @Id";
@@ -64,8 +108,8 @@ namespace EmployeeRegister.DataAccessLayer.Repository
                                 FamilyStatus = ((FamilyStatus) Convert.ToInt32(reader["FamilyStatus"])).ToString(),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
                                 Salary = Convert.ToDecimal(reader["Salary"]),
-                                Contact = _contactRepository.Index(Convert.ToInt32(reader["ContactId"])),
-                                Department = _departmentRepository.Index(Convert.ToInt32(reader["DepartmentId"]))
+                                Contact = _contactRepository.GetContact(Convert.ToInt32(reader["Id"])),
+                                Department = _departmentRepository.Get(Convert.ToInt32(reader["DepartmentId"]))
                             };
                         }
                     }
@@ -80,7 +124,7 @@ namespace EmployeeRegister.DataAccessLayer.Repository
         {
             IList<EmployeeViewModel> employees = new List<EmployeeViewModel>();
 
-            using (var connection = new SqlConnection(ConnectionSettings.ConnectionString))
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
                     "SELECT * FROM Employees";
@@ -103,8 +147,8 @@ namespace EmployeeRegister.DataAccessLayer.Repository
                                 FamilyStatus = ((FamilyStatus)Convert.ToInt32(reader["FamilyStatus"])).ToString(),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
                                 Salary = Convert.ToDecimal(reader["Salary"]),
-                                Contact = _contactRepository.Index(Convert.ToInt32(reader["ContactId"])),
-                                Department = _departmentRepository.Index(Convert.ToInt32(reader["DepartmentId"]))
+                                Contact = _contactRepository.GetContact(Convert.ToInt32(reader["Id"])),
+                                Department = _departmentRepository.Get(Convert.ToInt32(reader["DepartmentId"]))
                             });
                         }
                     }

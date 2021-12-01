@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EmployeeRegister.Business.Services
+namespace EmployeeRegister.BusinessLogic.Services
 {
     public interface IExtendedServiceData : IServiceData
     {

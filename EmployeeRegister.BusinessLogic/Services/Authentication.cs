@@ -1,4 +1,4 @@
-﻿namespace EmployeeRegister.Business.Services
+﻿namespace EmployeeRegister.BusinessLogic.Services
 {
     public class Authentication
     {

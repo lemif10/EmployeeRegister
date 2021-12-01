@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace EmployeeRegister.DataAccessLayer.Repository
+namespace EmployeeRegister.DAL.Repository
 {
     public interface IRepository
     {

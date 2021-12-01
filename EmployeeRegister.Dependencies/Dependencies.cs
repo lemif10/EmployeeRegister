@@ -1,4 +1,4 @@
-﻿using EmployeeRegister.DataAccessLayer.Connection;
+﻿using EmployeeRegister.DAL.Connection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -6,9 +6,12 @@ namespace EmployeeRegister.Dependencies
 {
     public static class Dependencies
     {
-        public static void GetConnectionSettings(this IServiceCollection services,IConfiguration configuration)
+        public static void AddConnectionSettings(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddSingleton(ConnectionSettings.ConnectionString = configuration.GetConnectionString("DefaultConnection"));
+            services.AddSingleton(new ConnectionSettings
+            {
+                ConnectionString = configuration.GetConnectionString("DefaultConnection") 
+            });
         }
     }
 }

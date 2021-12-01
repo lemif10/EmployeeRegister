@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net5.0</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <OutputType>Exe</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
@@ -10,8 +11,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\EmployeeRegister.Business\EmployeeRegister.Business.csproj" />
-      <ProjectReference Include="..\EmployeeRegister.Dependencies\EmployeeRegister.Dependencies.csproj" />
+      <ProjectReference Include="..\EmployeeRegister.BusinessLogic\EmployeeRegister.BusinessLogic.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -7,8 +7,6 @@
         public string FullName { get; set; }
         
         public int DepartmentId { get; set; }
-        
-        public int ContactId { get; set; }
 
         public string Address { get; set; }
         
