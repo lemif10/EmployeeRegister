@@ -1,0 +1,29 @@
+@using EmployeeRegister.Common.Models;
+@model DepartmentViewModel;
+
+@{
+    ViewData["Title"] = "Create";
+}
+<form asp-controller="Department" asp-action="Create" method="post">
+    <div class="form-group">
+        <label class="control-label">Name: </label>
+        @Html.EditorFor(x => x.Name)
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Phone number: </label>
+        @Html.EditorFor(x => x.PhoneNumber)
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label">Address: </label>
+        @Html.EditorFor(x => x.Address)
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Description: </label>
+        @Html.EditorFor(x => x.Description)
+    </div>
+    
+    <input type="submit" value="Create">
+</form>

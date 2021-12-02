@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using System.Data.Common;
 using System.Data.SqlClient;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.DAL.Connection;
@@ -108,10 +107,27 @@ namespace EmployeeRegister.DAL.Repository
         
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
+            {
+                var query =
+                    "DELETE FROM Contacts WHERE EmployeeId=@EmployeeId";
+
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("EmployeeId", SqlDbType.Int)
+                {
+                    Value = id
+                });
+                
+                command.Connection.Open();
+
+                command.ExecuteNonQuery();
+
+                command.Connection.Close();
+            }
         }
 
-        public Contact GetContact(int id)
+        public Contact Get(int id)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {

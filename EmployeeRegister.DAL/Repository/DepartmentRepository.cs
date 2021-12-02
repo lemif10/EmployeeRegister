@@ -16,19 +16,105 @@ namespace EmployeeRegister.DAL.Repository
             _connectionSettings = connectionSettings;
         }
         
-        public void Create<T>(T model)
+        public void Create(DepartmentViewModel model)
         {
-            throw new System.NotImplementedException();
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
+            {
+                var query = 
+                    "INSERT INTO Departments (Name, PhoneNumber, AddressD, Description) VALUES (@Name, @PhoneNumber, @AddressD, @Description)";
+
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("Name", SqlDbType.Text)
+                {
+                    Value = model.Name
+                });
+                
+                command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
+                {
+                    Value = model.PhoneNumber
+                });
+                
+                command.Parameters.Add(new SqlParameter("AddressD", SqlDbType.Text)
+                {
+                    Value = model.Address
+                });
+                
+                command.Parameters.Add(new SqlParameter("Description", SqlDbType.Text)
+                {
+                    Value = model.Description
+                });
+
+                command.Connection.Open();
+
+                command.ExecuteNonQuery();
+                
+                command.Connection.Close();
+            }
         }
 
-        public void Edit(int id)
+        public void Edit(Department model)
         {
-            throw new System.NotImplementedException();
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
+            {
+                var query =
+                    "UPDATE Departments SET Name=@Name, PhoneNumber=@PhoneNumber, AddressD=@Address, Description=@Description WHERE Idn=@Id";
+
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
+                {
+                    Value = model.Id
+                });
+
+                command.Parameters.Add(new SqlParameter("Name", SqlDbType.Text)
+                {
+                    Value = model.Name
+                });
+                
+                command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
+                {
+                    Value = model.PhoneNumber
+                });
+
+                command.Parameters.Add(new SqlParameter("Address", SqlDbType.Text)
+                {
+                    Value = model.Address
+                });
+                
+                command.Parameters.Add(new SqlParameter("Description", SqlDbType.Text)
+                {
+                    Value = model.Description
+                });
+
+                command.Connection.Open();
+
+                command.ExecuteNonQuery();
+
+                command.Connection.Close();
+            }
         }
 
         public void Delete(int id)
         {
-            throw new System.NotImplementedException();
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
+            {
+                var query =
+                    "DELETE FROM Departments WHERE Idn=@Id";
+
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
+                {
+                    Value = id
+                });
+
+                command.Connection.Open();
+
+                command.ExecuteNonQuery();
+
+                command.Connection.Close();
+            }
         }
 
         public List<Department> Index()

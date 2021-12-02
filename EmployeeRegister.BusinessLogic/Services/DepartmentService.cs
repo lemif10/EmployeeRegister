@@ -13,6 +13,41 @@ namespace EmployeeRegister.BusinessLogic.Services
         {
             _departmentRepository = new DepartmentRepository(connectionSettings);
         }
+
+        public void Delete(int id)
+        {
+            _departmentRepository.Delete(id);
+        }
+        
+        public void Create(DepartmentViewModel model)
+        {
+            _departmentRepository.Create(model);
+        }
+
+        public DepartmentViewModel Get(int id)
+        {
+            Department department = _departmentRepository.Get(id);
+
+            return new DepartmentViewModel
+            {
+                Name = department.Name,
+                Address = department.Address,
+                Description = department.Description,
+                PhoneNumber = department.PhoneNumber
+            };
+        }
+
+        public void Edit(DepartmentViewModel departmentViewModel, int id)
+        {
+            _departmentRepository.Edit( new Department
+            {
+                Id = id,
+                Address = departmentViewModel.Address,
+                Description = departmentViewModel.Description,
+                Name = departmentViewModel.Name,
+                PhoneNumber = departmentViewModel.PhoneNumber
+            });
+        }
         
         public List<Department> Index()
         {

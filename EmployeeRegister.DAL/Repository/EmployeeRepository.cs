@@ -122,7 +122,24 @@ namespace EmployeeRegister.DAL.Repository
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
+            {
+                var query =
+                    "DELETE FROM Employees WHERE Id=@Id";
+
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
+                {
+                    Value = id
+                });
+                
+                command.Connection.Open();
+
+                command.ExecuteNonQuery();
+
+                command.Connection.Close();
+            }
         }
 
         public EmployeeViewModel Get(int id)
@@ -155,7 +172,7 @@ namespace EmployeeRegister.DAL.Repository
                                 FamilyStatus = (FamilyStatus)Convert.ToInt32(reader["FamilyStatus"]),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
                                 Salary = Convert.ToDecimal(reader["Salary"]),
-                                Contact = _contactRepository.GetContact(Convert.ToInt32(reader["Id"])),
+                                Contact = _contactRepository.Get(Convert.ToInt32(reader["Id"])),
                                 Department = _departmentRepository.Get(Convert.ToInt32(reader["DepartmentId"]))
                             };
                         }
@@ -194,7 +211,7 @@ namespace EmployeeRegister.DAL.Repository
                                 FamilyStatus = (FamilyStatus)Convert.ToInt32(reader["FamilyStatus"]),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
                                 Salary = Convert.ToDecimal(reader["Salary"]),
-                                Contact = _contactRepository.GetContact(Convert.ToInt32(reader["Id"])),
+                                Contact = _contactRepository.Get(Convert.ToInt32(reader["Id"])),
                                 Department = _departmentRepository.Get(Convert.ToInt32(reader["DepartmentId"]))
                             });
                         }

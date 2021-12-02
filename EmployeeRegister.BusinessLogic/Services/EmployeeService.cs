@@ -19,8 +19,6 @@ namespace EmployeeRegister.BusinessLogic.Services
         
         public EmployeeViewModel Get(int id)
         {
-            
-            
             return _employeeRepository.Get(id);
         }
 
@@ -43,7 +41,7 @@ namespace EmployeeRegister.BusinessLogic.Services
         {
             _employeeRepository.Edit(new Employee
             {
-                Id = id,
+                Id = employeeViewModel.Id,
                 FullName = employeeViewModel.FullName,
                 Address = employeeViewModel.Address,
                 DepartmentId = employeeViewModel.Department.Id,
@@ -55,9 +53,10 @@ namespace EmployeeRegister.BusinessLogic.Services
             _contactRepository.Edit(employeeViewModel.Contact, id);
         }
 
-        public void Delete()
+        public void Delete(int id)
         {
-            throw new NotImplementedException();
+            _contactRepository.Delete(id);
+            _employeeRepository.Delete(id);
         }
 
         public List<T> Index<T>()

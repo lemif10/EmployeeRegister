@@ -52,9 +52,11 @@ namespace EmployeeRegister.Controllers
             return View();
         }
 
-        public IActionResult Delete()
+        public IActionResult Delete(int id)
         {
-            return View();
+            _employeeService.Delete(id);
+            
+            return RedirectToAction(nameof(Index));
         }
         
         public IActionResult Edit(int id)
