@@ -1,1 +1,54 @@
-﻿
+﻿@using EmployeeRegister.Common.Models;
+@using EmployeeRegister.Common.Enums
+@model EmployeeViewModel;
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form asp-controller="Employee" asp-action="Edit" method="post">
+    
+    <div class="form-group">
+        <label class="control-label">FullName: </label>
+        @Html.EditorFor(x => x.FullName)
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Address: </label>
+        @Html.EditorFor(x => x.Address)
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">FamilyStatus: </label>
+        @Html.DropDownListFor(x => x.FamilyStatus,
+            new SelectList(Enum.GetNames(typeof(FamilyStatus))))
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Work experience: </label>
+        @Html.EditorFor(x => x.WorkExperience)
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Salary: </label>
+        @Html.EditorFor(x => x.Salary)
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">PhoneNumber: </label>
+        @Html.EditorFor(x => x.Contact.PhoneNumber)
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Email: </label>
+        @Html.EditorFor(x => x.Contact.Email)
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label">Department: </label>
+        @Html.DropDownListFor(x => x.Department.Id,
+            new SelectList(Model.Departments, "Id", "Name"))
+    </div>
+    
+    <input type="submit" value="Edit">
+</form>

@@ -29,7 +29,11 @@
                 </span>
             </td>
             <td>@Html.DisplayFor(modelItem => item.Contact.PhoneNumber)</td>
-            <td>@Html.ActionLink("Details", "Details", new{id = item.Id})</td>
+            <td>
+                @Html.ActionLink("Details", "Details", new {id = item.Id})
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id})
+            </td>
+
         </tr>
     }
 </table>

@@ -68,9 +68,56 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
 
-        public void Edit(int id)
+        public void Edit(Employee model)
         {
-            throw new NotImplementedException();
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
+            {
+                var query = 
+                    "UPDATE Employees SET FullName=@FullName, DepartmentId=@DepartmentId, Address=@Address, FamilyStatus=@FamilyStatus, WorkExperience=@WorkExperience, Salary=@Salary WHERE Id = @Id";
+
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
+                {
+                    Value = model.Id
+                });
+                
+                command.Parameters.Add(new SqlParameter("FullName", SqlDbType.Text)
+                {
+                    Value = model.FullName
+                });
+                
+                command.Parameters.Add(new SqlParameter("DepartmentId", SqlDbType.Int)
+                {
+                    Value = model.DepartmentId
+                });
+                
+                command.Parameters.Add(new SqlParameter("Address", SqlDbType.Text)
+                {
+                    Value = model.Address
+                });
+                
+                command.Parameters.Add(new SqlParameter("FamilyStatus", SqlDbType.Int)
+                {
+                    Value = model.FamilyStatus
+                });
+                
+                command.Parameters.Add(new SqlParameter("WorkExperience", SqlDbType.Decimal)
+                {
+                    Value = model.WorkExperience
+                });
+                
+                command.Parameters.Add(new SqlParameter("Salary", SqlDbType.Decimal)
+                {
+                    Value = model.Salary
+                });
+                
+                command.Connection.Open();
+
+                command.ExecuteNonQuery();
+                
+                command.Connection.Close();
+            }
         }
 
         public void Delete(int id)
@@ -105,7 +152,7 @@ namespace EmployeeRegister.DAL.Repository
                                 Id = Convert.ToInt32(reader["Id"]),
                                 FullName = reader["FullName"].ToString(),
                                 Address = reader["Address"].ToString(),
-                                FamilyStatus = ((FamilyStatus) Convert.ToInt32(reader["FamilyStatus"])).ToString(),
+                                FamilyStatus = (FamilyStatus)Convert.ToInt32(reader["FamilyStatus"]),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
                                 Salary = Convert.ToDecimal(reader["Salary"]),
                                 Contact = _contactRepository.GetContact(Convert.ToInt32(reader["Id"])),
@@ -144,7 +191,7 @@ namespace EmployeeRegister.DAL.Repository
                                 Id = Convert.ToInt32(reader["Id"]),
                                 FullName = reader["FullName"].ToString(),
                                 Address = reader["Address"].ToString(),
-                                FamilyStatus = ((FamilyStatus)Convert.ToInt32(reader["FamilyStatus"])).ToString(),
+                                FamilyStatus = (FamilyStatus)Convert.ToInt32(reader["FamilyStatus"]),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
                                 Salary = Convert.ToDecimal(reader["Salary"]),
                                 Contact = _contactRepository.GetContact(Convert.ToInt32(reader["Id"])),

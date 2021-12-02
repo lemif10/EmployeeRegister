@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using EmployeeRegister.Common.Enums;
+
 namespace EmployeeRegister.Common.Models
 {
     public class EmployeeViewModel
@@ -12,12 +15,12 @@ namespace EmployeeRegister.Common.Models
 
         public string Address { get; set; }
         
-        public string FamilyStatus { get; set; }
+        public FamilyStatus FamilyStatus { get; set; }
 
         public decimal WorkExperience { get; set; }
         
-        //TODO тут будет поле для фотографий, просто разберуюсь с их хранением и выводом)
-
         public decimal Salary { get; set; }
+        
+        public List<Department> Departments { get; set; }
     }
 }

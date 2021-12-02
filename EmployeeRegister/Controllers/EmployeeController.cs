@@ -20,6 +20,28 @@ namespace EmployeeRegister.Controllers
             _logger = logger;
         }
         
+        public IActionResult Create()
+        {
+            return View(new EmployeeViewModel
+            {
+                Departments = _departmentService.Index()
+            });
+        }
+        
+        [HttpPost]
+        public IActionResult Create(EmployeeViewModel createEmployeeView)
+        {
+            _employeeService.Create(createEmployeeView);
+            
+            return RedirectToAction(nameof(Index));
+        }
+        
+                
+        public IActionResult Details(int id)
+        {
+            return View(_employeeService.Get(id));
+        }
+        
         public IActionResult Index()
         {
             return View(_employeeService.Index<EmployeeViewModel>());
@@ -34,31 +56,21 @@ namespace EmployeeRegister.Controllers
         {
             return View();
         }
-
-        public IActionResult Create()
+        
+        public IActionResult Edit(int id)
         {
-            return View(new CreateEmployeeView
-            {
-                Departments = _departmentService.Index()
-            });
+            EmployeeViewModel employeeViewModel = _employeeService.Get(id);
+            employeeViewModel.Departments = _departmentService.Index();
+            
+            return View(employeeViewModel);
         }
         
         [HttpPost]
-        public IActionResult Create(CreateEmployeeView createEmployeeView)
+        public IActionResult Edit(EmployeeViewModel model, int id)
         {
-            _employeeService.Create(createEmployeeView);
+            _employeeService.Edit(model, id);
             
             return RedirectToAction(nameof(Index));
-        }
-        
-        public IActionResult Details(int id)
-        {
-            return View(_employeeService.Get(id));
-        }
-        
-        public IActionResult Edit()
-        {
-            return View();
         }
     }
     

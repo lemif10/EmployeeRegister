@@ -17,34 +17,42 @@ namespace EmployeeRegister.BusinessLogic.Services
             _employeeRepository = new EmployeeRepository(connectionSettings);
         }
         
-        public void Add()
-        {
-            throw new NotImplementedException();
-        }
-
         public EmployeeViewModel Get(int id)
         {
+            
+            
             return _employeeRepository.Get(id);
         }
 
-        public void Create(CreateEmployeeView createEmployeeView)
+        public void Create(EmployeeViewModel employeeViewModel)
         {
             _employeeRepository.Create(new Employee
            {
-               FullName = createEmployeeView.FullName,
-               Address = createEmployeeView.Address,
-               DepartmentId = createEmployeeView.Department.Id,
-               FamilyStatus = (int)createEmployeeView.FamilyStatus,
-               Salary = createEmployeeView.Salary,
-               WorkExperience = createEmployeeView.WorkExperience
+               FullName = employeeViewModel.FullName,
+               Address = employeeViewModel.Address,
+               DepartmentId = employeeViewModel.Department.Id,
+               FamilyStatus = (int)employeeViewModel.FamilyStatus,
+               Salary = employeeViewModel.Salary,
+               WorkExperience = employeeViewModel.WorkExperience
            });
             
-            _contactRepository.Create(createEmployeeView.Contact);
+            _contactRepository.Create(employeeViewModel.Contact);
         }
 
-        public void Edit()
+        public void Edit(EmployeeViewModel employeeViewModel, int id)
         {
-            throw new NotImplementedException();
+            _employeeRepository.Edit(new Employee
+            {
+                Id = id,
+                FullName = employeeViewModel.FullName,
+                Address = employeeViewModel.Address,
+                DepartmentId = employeeViewModel.Department.Id,
+                FamilyStatus = (int)employeeViewModel.FamilyStatus,
+                Salary = employeeViewModel.Salary,
+                WorkExperience = employeeViewModel.WorkExperience
+            });
+            
+            _contactRepository.Edit(employeeViewModel.Contact, id);
         }
 
         public void Delete()

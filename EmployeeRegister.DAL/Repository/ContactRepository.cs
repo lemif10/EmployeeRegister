@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.DAL.Connection;
@@ -73,11 +74,38 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
 
-        public void Edit(int id)
+        public void Edit(Contact model, int id)
         {
-            throw new System.NotImplementedException();
-        }
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
+            {
+                var query =
+                    "UPDATE Contacts SET PhoneNumber=@PhoneNumber, Email=@Email WHERE EmployeeId = @EmployeeId";
 
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("EmployeeId", SqlDbType.Int)
+                {
+                    Value = id
+                });
+
+                command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
+                {
+                    Value = model.PhoneNumber
+                });
+
+                command.Parameters.Add(new SqlParameter("Email", SqlDbType.Text)
+                {
+                    Value = model.Email
+                });
+
+                command.Connection.Open();
+
+                command.ExecuteNonQuery();
+
+                command.Connection.Close();
+            }
+        }
+        
         public void Delete(int id)
         {
             throw new System.NotImplementedException();
