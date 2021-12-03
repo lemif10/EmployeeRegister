@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using EmployeeRegister.Common.Models;
+using EmployeeRegister.Common.ViewModels;
 
 namespace EmployeeRegister.DAL.Repository
 {

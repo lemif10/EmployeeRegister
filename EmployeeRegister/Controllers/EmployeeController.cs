@@ -1,10 +1,8 @@
-﻿using EmployeeRegister.BusinessLogic.Interface;
-using EmployeeRegister.BusinessLogic.Services;
+﻿using System;
+using EmployeeRegister.BusinessLogic.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using EmployeeRegister.Common.Models;
-using EmployeeRegister.DAL.Connection;
-using EmployeeRegister.DAL.Repository;
+using EmployeeRegister.Common.ViewModels;
 
 namespace EmployeeRegister.Controllers
 {
@@ -31,11 +29,25 @@ namespace EmployeeRegister.Controllers
         }
         
         [HttpPost]
-        public IActionResult Create(EmployeeViewModel createEmployeeView)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(EmployeeViewModel employeeViewModel)
         {
-            _employeeService.Create(createEmployeeView);
-            
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _employeeService.Create(employeeViewModel);
+                
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                employeeViewModel.Departments = _departmentService.Index();
+                return View(employeeViewModel);
+            }
+            catch
+            {
+                return View();
+            }
         }
         
         public IActionResult Details(int id)
@@ -69,11 +81,24 @@ namespace EmployeeRegister.Controllers
         }
         
         [HttpPost]
-        public IActionResult Edit(EmployeeViewModel model, int id)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(EmployeeViewModel employeeViewModel, int id)
         {
-            _employeeService.Edit(model, id);
-            
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _employeeService.Edit(employeeViewModel, id);
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                employeeViewModel.Departments = _departmentService.Index();
+                return View(employeeViewModel);
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
     

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using EmployeeRegister.Common.Models;
+using EmployeeRegister.Common.ViewModels;
 using EmployeeRegister.DAL.Connection;
 
 namespace EmployeeRegister.DAL.Repository

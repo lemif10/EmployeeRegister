@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using EmployeeRegister.BusinessLogic.Interface;
 using EmployeeRegister.Common.Models;
+using EmployeeRegister.Common.ViewModels;
 using EmployeeRegister.DAL.Connection;
 using EmployeeRegister.DAL.Repository;
 

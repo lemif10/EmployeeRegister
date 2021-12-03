@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using EmployeeRegister.BusinessLogic.Services;
 using EmployeeRegister.Common.Models;
+using EmployeeRegister.Common.ViewModels;
 
 namespace EmployeeRegister.BusinessLogic.Interface
 {

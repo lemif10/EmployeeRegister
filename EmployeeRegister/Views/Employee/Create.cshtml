@@ -1,6 +1,6 @@
 ﻿@using EmployeeRegister.Common.Models;
 @using EmployeeRegister.Common.Enums
-@model EmployeeViewModel;
+@model EmployeeRegister.Common.ViewModels.EmployeeViewModel;
 
 @{
     ViewData["Title"] = "Create";
@@ -10,11 +10,13 @@
     <div class="form-group">
         <label class="control-label">FullName: </label>
         @Html.EditorFor(x => x.FullName)
+        <span asp-validation-for="FullName" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label class="control-label">Address: </label>
         @Html.EditorFor(x => x.Address)
+        <span asp-validation-for="Address" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -26,21 +28,25 @@
     <div class="form-group">
         <label class="control-label">Work experience: </label>
         @Html.EditorFor(x => x.WorkExperience)
+        <span asp-validation-for="WorkExperience" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label class="control-label">Salary: </label>
         @Html.EditorFor(x => x.Salary)
+        <span asp-validation-for="Salary" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label class="control-label">PhoneNumber: </label>
         @Html.EditorFor(x => x.Contact.PhoneNumber)
+        <span asp-validation-for="Contact.PhoneNumber" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label class="control-label">Email: </label>
         @Html.EditorFor(x => x.Contact.Email)
+        <span asp-validation-for="Contact.Email" class="text-danger"></span>
     </div>
     
     <div class="form-group">

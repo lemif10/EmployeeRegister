@@ -1,5 +1,7 @@
+using System;
 using EmployeeRegister.BusinessLogic.Interface;
 using EmployeeRegister.Common.Models;
+using EmployeeRegister.Common.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -28,11 +30,24 @@ namespace EmployeeRegister.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(DepartmentViewModel model)
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(DepartmentViewModel departmentViewModel)
         {
-            _departmentService.Create(model);
+            if (ModelState.IsValid)
+            {
+                _departmentService.Create(departmentViewModel);
             
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                return View(departmentViewModel);
+            }
+            catch
+            {
+                return View();
+            }
         }
         
         public IActionResult Delete(int id)
@@ -48,11 +63,24 @@ namespace EmployeeRegister.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(DepartmentViewModel departmentViewModel, int id)
         {
-            _departmentService.Edit(departmentViewModel, id);
-            
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                _departmentService.Edit(departmentViewModel, id);
+                
+                return RedirectToAction(nameof(Index));
+            }
+
+            try
+            {
+                return View(departmentViewModel);
+            }
+            catch
+            {
+                return View();
+            }
         }
     }
 }
