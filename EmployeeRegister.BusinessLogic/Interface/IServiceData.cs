@@ -2,10 +2,6 @@
 {
     public interface IServiceData
     {
-        void Create();
-
-        void Edit();
-        
-        void Delete();
+        void Delete(int id);
     }
 }

@@ -1,17 +1,18 @@
 using System.Collections.Generic;
+using EmployeeRegister.BusinessLogic.Interface;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.DAL.Connection;
 using EmployeeRegister.DAL.Repository;
 
 namespace EmployeeRegister.BusinessLogic.Services
 {
-    public class DepartmentService
+    public class DepartmentService : IDepartmentService
     {
-        private readonly DepartmentRepository  _departmentRepository;
+        private readonly IDepartmentRepository  _departmentRepository;
         
-        public DepartmentService(ConnectionSettings connectionSettings)
+        public DepartmentService(IDepartmentRepository departmentRepository)
         {
-            _departmentRepository = new DepartmentRepository(connectionSettings);
+            _departmentRepository = departmentRepository;
         }
 
         public void Delete(int id)
@@ -19,9 +20,9 @@ namespace EmployeeRegister.BusinessLogic.Services
             _departmentRepository.Delete(id);
         }
         
-        public void Create(DepartmentViewModel model)
+        public void Create(DepartmentViewModel departmentViewModel)
         {
-            _departmentRepository.Create(model);
+            _departmentRepository.Create(departmentViewModel);
         }
 
         public DepartmentViewModel Get(int id)
@@ -49,7 +50,7 @@ namespace EmployeeRegister.BusinessLogic.Services
             });
         }
         
-        public List<Department> Index()
+        public IEnumerable<Department> Index()
         {
             return _departmentRepository.Index();
         }

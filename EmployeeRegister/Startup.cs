@@ -21,6 +21,16 @@ namespace EmployeeRegister
             services.AddControllersWithViews();
             
             services.AddConnectionSettings(Configuration);
+
+            services.AddIEmployeeService();
+            
+            services.AddIEmployeeRepository();
+            
+            services.AddIDepartmentRepository();
+            
+            services.AddIDepartmentService();
+            
+            services.AddIContactRepository();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

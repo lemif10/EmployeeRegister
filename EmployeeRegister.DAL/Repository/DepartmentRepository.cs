@@ -7,7 +7,7 @@ using EmployeeRegister.DAL.Connection;
 
 namespace EmployeeRegister.DAL.Repository
 {
-    public class DepartmentRepository
+    public class DepartmentRepository : IDepartmentRepository
     {
         private readonly ConnectionSettings _connectionSettings;
 
@@ -16,7 +16,7 @@ namespace EmployeeRegister.DAL.Repository
             _connectionSettings = connectionSettings;
         }
         
-        public void Create(DepartmentViewModel model)
+        public void Create(DepartmentViewModel departmentViewModel)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
@@ -27,22 +27,22 @@ namespace EmployeeRegister.DAL.Repository
 
                 command.Parameters.Add(new SqlParameter("Name", SqlDbType.Text)
                 {
-                    Value = model.Name
+                    Value = departmentViewModel.Name
                 });
                 
                 command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
                 {
-                    Value = model.PhoneNumber
+                    Value = departmentViewModel.PhoneNumber
                 });
                 
                 command.Parameters.Add(new SqlParameter("AddressD", SqlDbType.Text)
                 {
-                    Value = model.Address
+                    Value = departmentViewModel.Address
                 });
                 
                 command.Parameters.Add(new SqlParameter("Description", SqlDbType.Text)
                 {
-                    Value = model.Description
+                    Value = departmentViewModel.Description
                 });
 
                 command.Connection.Open();
@@ -53,7 +53,7 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
 
-        public void Edit(Department model)
+        public void Edit(Department department)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
@@ -64,27 +64,27 @@ namespace EmployeeRegister.DAL.Repository
 
                 command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
                 {
-                    Value = model.Id
+                    Value = department.Id
                 });
 
                 command.Parameters.Add(new SqlParameter("Name", SqlDbType.Text)
                 {
-                    Value = model.Name
+                    Value = department.Name
                 });
                 
                 command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
                 {
-                    Value = model.PhoneNumber
+                    Value = department.PhoneNumber
                 });
 
                 command.Parameters.Add(new SqlParameter("Address", SqlDbType.Text)
                 {
-                    Value = model.Address
+                    Value = department.Address
                 });
                 
                 command.Parameters.Add(new SqlParameter("Description", SqlDbType.Text)
                 {
-                    Value = model.Description
+                    Value = department.Description
                 });
 
                 command.Connection.Open();
@@ -117,7 +117,7 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
 
-        public List<Department> Index()
+        public IEnumerable<Department> Index()
         {
             List<Department> departments = new List<Department>();
             

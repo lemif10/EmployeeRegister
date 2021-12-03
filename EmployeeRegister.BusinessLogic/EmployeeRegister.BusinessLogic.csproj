@@ -7,7 +7,6 @@
     <ItemGroup>
       <ProjectReference Include="..\EmployeeRegister.Common\EmployeeRegister.Common.csproj" />
       <ProjectReference Include="..\EmployeeRegister.DAL\EmployeeRegister.DAL.csproj" />
-      <ProjectReference Include="..\EmployeeRegister.Dependencies\EmployeeRegister.Dependencies.csproj" />
     </ItemGroup>
 
 </Project>

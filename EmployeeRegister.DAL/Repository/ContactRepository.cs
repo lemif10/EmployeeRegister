@@ -6,7 +6,7 @@ using EmployeeRegister.DAL.Connection;
 
 namespace EmployeeRegister.DAL.Repository
 {
-    public class ContactRepository
+    public class ContactRepository : IContactRepository
     {
         private readonly ConnectionSettings _connectionSettings;
         
@@ -14,7 +14,7 @@ namespace EmployeeRegister.DAL.Repository
         {
             _connectionSettings = connectionSettings;
         }
-        
+
         public int SelectLastId()
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
@@ -41,7 +41,7 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
         
-        public void Create(Contact model)
+        public void Create(Contact contact)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
@@ -57,12 +57,12 @@ namespace EmployeeRegister.DAL.Repository
                 
                 command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
                 {
-                    Value = model.PhoneNumber
+                    Value = contact.PhoneNumber
                 });
                 
                 command.Parameters.Add(new SqlParameter("Email", SqlDbType.Text)
                 {
-                    Value = model.Email
+                    Value = contact.Email
                 });
 
                 command.Connection.Open();
@@ -73,7 +73,7 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
 
-        public void Edit(Contact model, int id)
+        public void Edit(Contact contact, int id)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
@@ -89,12 +89,12 @@ namespace EmployeeRegister.DAL.Repository
 
                 command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
                 {
-                    Value = model.PhoneNumber
+                    Value = contact.PhoneNumber
                 });
 
                 command.Parameters.Add(new SqlParameter("Email", SqlDbType.Text)
                 {
-                    Value = model.Email
+                    Value = contact.Email
                 });
 
                 command.Connection.Open();

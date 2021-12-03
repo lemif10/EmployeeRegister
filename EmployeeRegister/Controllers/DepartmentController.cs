@@ -1,6 +1,5 @@
-using EmployeeRegister.BusinessLogic.Services;
+using EmployeeRegister.BusinessLogic.Interface;
 using EmployeeRegister.Common.Models;
-using EmployeeRegister.DAL.Connection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -8,13 +7,13 @@ namespace EmployeeRegister.Controllers
 {
     public class DepartmentController : Controller
     {
-        private readonly DepartmentService _departmentService;
+        private readonly IDepartmentService _departmentService;
 
         private readonly ILogger<EmployeeController> _logger;
 
-        public DepartmentController(ILogger<EmployeeController> logger, ConnectionSettings connectionSettings)
+        public DepartmentController(ILogger<EmployeeController> logger, IDepartmentService departmentService)
         {
-            _departmentService = new DepartmentService(connectionSettings);
+            _departmentService = departmentService;
             _logger = logger;
         }
 

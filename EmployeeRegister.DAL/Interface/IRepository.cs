@@ -2,8 +2,8 @@ using System.Collections.Generic;
 
 namespace EmployeeRegister.DAL.Repository
 {
-    public interface IExtendedRepository : IRepository
+    public interface IRepository
     {
-        List<T> Index<T>();
+        public void Delete(int id);
     }
 }

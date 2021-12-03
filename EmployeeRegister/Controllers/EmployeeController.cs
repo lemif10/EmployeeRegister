@@ -1,22 +1,24 @@
-﻿using EmployeeRegister.BusinessLogic.Services;
+﻿using EmployeeRegister.BusinessLogic.Interface;
+using EmployeeRegister.BusinessLogic.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.DAL.Connection;
+using EmployeeRegister.DAL.Repository;
 
 namespace EmployeeRegister.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly EmployeeService _employeeService;
-        private readonly DepartmentService _departmentService;
-
+        private readonly IEmployeeService _employeeService;
+        private readonly IDepartmentService _departmentService;
         private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(ILogger<EmployeeController> logger, ConnectionSettings connectionSettings)
+        public EmployeeController(ILogger<EmployeeController> logger,
+            IEmployeeService employeeService, IDepartmentService departmentService )
         {
-            _departmentService = new DepartmentService(connectionSettings);
-            _employeeService = new EmployeeService(connectionSettings);
+            _departmentService = departmentService;
+            _employeeService = employeeService;
             _logger = logger;
         }
         
@@ -36,7 +38,6 @@ namespace EmployeeRegister.Controllers
             return RedirectToAction(nameof(Index));
         }
         
-                
         public IActionResult Details(int id)
         {
             return View(_employeeService.Get(id));
@@ -44,7 +45,7 @@ namespace EmployeeRegister.Controllers
         
         public IActionResult Index()
         {
-            return View(_employeeService.Index<EmployeeViewModel>());
+            return View(_employeeService.Index());
         }
         
         public IActionResult Search()

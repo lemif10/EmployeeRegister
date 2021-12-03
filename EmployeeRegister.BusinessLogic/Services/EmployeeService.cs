@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using EmployeeRegister.BusinessLogic.Interface;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.DAL.Connection;
 using EmployeeRegister.DAL.Repository;
 
 namespace EmployeeRegister.BusinessLogic.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly ContactRepository _contactRepository;
-        private readonly EmployeeRepository _employeeRepository;
-
-        public EmployeeService(ConnectionSettings connectionSettings)
+        private readonly IEmployeeRepository _employeeRepository;
+        
+        public EmployeeService(ConnectionSettings connectionSettings, IEmployeeRepository employeeRepository)
         {
             _contactRepository = new ContactRepository(connectionSettings);
-            _employeeRepository = new EmployeeRepository(connectionSettings);
+            _employeeRepository = employeeRepository;
         }
         
         public EmployeeViewModel Get(int id)
@@ -59,9 +60,9 @@ namespace EmployeeRegister.BusinessLogic.Services
             _employeeRepository.Delete(id);
         }
 
-        public List<T> Index<T>()
+        public IEnumerable<EmployeeViewModel> Index()
         {
-            return _employeeRepository.Index<T>();
+            return _employeeRepository.Index();
         }
     }
 }

@@ -1,11 +1,11 @@
 @using EmployeeRegister.Common.Models;
-@model List<Department>;
+@model IEnumerable<Department>;
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h3>Employees</h3>
+<h3>Departments</h3>
 
 @Html.ActionLink("Register New", "Create")
 
