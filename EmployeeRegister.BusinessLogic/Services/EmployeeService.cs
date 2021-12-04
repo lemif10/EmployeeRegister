@@ -1,9 +1,9 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using EmployeeRegister.BusinessLogic.Interface;
+using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Models;
-using EmployeeRegister.Common.ViewModels;
 using EmployeeRegister.DAL.Connection;
+using EmployeeRegister.DAL.Interfaces;
 using EmployeeRegister.DAL.Repository;
 
 namespace EmployeeRegister.BusinessLogic.Services
@@ -19,40 +19,19 @@ namespace EmployeeRegister.BusinessLogic.Services
             _employeeRepository = employeeRepository;
         }
         
-        public EmployeeViewModel Get(int id)
+        public Employee Get(int id)
         {
             return _employeeRepository.Get(id);
         }
 
-        public void Create(EmployeeViewModel employeeViewModel)
+        public void Create(Employee employee)
         {
-            _employeeRepository.Create(new Employee
-           {
-               FullName = employeeViewModel.FullName,
-               Address = employeeViewModel.Address,
-               DepartmentId = employeeViewModel.Department.Id,
-               FamilyStatus = (int)employeeViewModel.FamilyStatus,
-               Salary = employeeViewModel.Salary,
-               WorkExperience = employeeViewModel.WorkExperience
-           });
-            
-            _contactRepository.Create(employeeViewModel.Contact);
+            _employeeRepository.Create(employee);
         }
 
-        public void Edit(EmployeeViewModel employeeViewModel, int id)
+        public void Edit(Employee employee)
         {
-            _employeeRepository.Edit(new Employee
-            {
-                Id = employeeViewModel.Id,
-                FullName = employeeViewModel.FullName,
-                Address = employeeViewModel.Address,
-                DepartmentId = employeeViewModel.Department.Id,
-                FamilyStatus = (int)employeeViewModel.FamilyStatus,
-                Salary = employeeViewModel.Salary,
-                WorkExperience = employeeViewModel.WorkExperience
-            });
-            
-            _contactRepository.Edit(employeeViewModel.Contact, id);
+            _employeeRepository.Edit(employee);
         }
 
         public void Delete(int id)
@@ -61,9 +40,9 @@ namespace EmployeeRegister.BusinessLogic.Services
             _employeeRepository.Delete(id);
         }
 
-        public IEnumerable<EmployeeViewModel> Index()
+        public IEnumerable<Employee> GetAll()
         {
-            return _employeeRepository.Index();
+            return _employeeRepository.GetAll();
         }
     }
 }

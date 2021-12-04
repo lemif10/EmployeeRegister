@@ -22,15 +22,9 @@ namespace EmployeeRegister
             
             services.AddConnectionSettings(Configuration);
 
-            services.AddIEmployeeService();
+            services.AddIService();
             
-            services.AddIEmployeeRepository();
-            
-            services.AddIDepartmentRepository();
-            
-            services.AddIDepartmentService();
-            
-            services.AddIContactRepository();
+            services.AddIRepository();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +42,7 @@ namespace EmployeeRegister
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=HomePage}/{id?}");
+                    pattern: "{controller=HOme}/{action=HomePage}/{id?}");
             });
         }
     }

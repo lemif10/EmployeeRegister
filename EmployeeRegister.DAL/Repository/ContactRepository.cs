@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.DAL.Connection;
+using EmployeeRegister.DAL.Interfaces;
 
 namespace EmployeeRegister.DAL.Repository
 {
@@ -14,46 +15,15 @@ namespace EmployeeRegister.DAL.Repository
         {
             _connectionSettings = connectionSettings;
         }
-
-        public int SelectLastId()
-        {
-            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
-            {
-                var query =
-                    "SELECT Id FROM Employees WHERE Id=(SELECT max(Id) FROM Employees)";
-
-                var command = new SqlCommand(query, connection);
-                
-                command.Connection.Open();
-
-                using (var reader = command.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            return Convert.ToInt32(reader["Id"]);
-                        }
-                    }
-                }
-
-                return -1;
-            }
-        }
         
         public void Create(Contact contact)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query = 
-                    "INSERT INTO Contacts (EmployeeId, PhoneNumber, Email) VALUES (@EmployeeId, @PhoneNumber, @Email)";
+                    "INSERT INTO Contacts (PhoneNumber, Email) VALUES (@PhoneNumber, @Email)";
 
                 var command = new SqlCommand(query, connection);
-
-                command.Parameters.Add(new SqlParameter("EmployeeId", SqlDbType.Int)
-                {
-                    Value = SelectLastId()
-                });
                 
                 command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
                 {
@@ -68,23 +38,21 @@ namespace EmployeeRegister.DAL.Repository
                 command.Connection.Open();
 
                 command.ExecuteNonQuery();
-                
-                command.Connection.Close();
             }
         }
 
-        public void Edit(Contact contact, int id)
+        public void Edit(Contact contact)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "UPDATE Contacts SET PhoneNumber=@PhoneNumber, Email=@Email WHERE EmployeeId = @EmployeeId";
+                    "UPDATE Contacts SET PhoneNumber=@PhoneNumber, Email=@Email WHERE Idn = @Id";
 
                 var command = new SqlCommand(query, connection);
 
-                command.Parameters.Add(new SqlParameter("EmployeeId", SqlDbType.Int)
+                command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
                 {
-                    Value = id
+                    Value = contact.Id
                 });
 
                 command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
@@ -100,8 +68,6 @@ namespace EmployeeRegister.DAL.Repository
                 command.Connection.Open();
 
                 command.ExecuteNonQuery();
-
-                command.Connection.Close();
             }
         }
         
@@ -110,11 +76,11 @@ namespace EmployeeRegister.DAL.Repository
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "DELETE FROM Contacts WHERE EmployeeId=@EmployeeId";
+                    "DELETE FROM Contacts WHERE Idn=@Id";
 
                 var command = new SqlCommand(query, connection);
 
-                command.Parameters.Add(new SqlParameter("EmployeeId", SqlDbType.Int)
+                command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
                 {
                     Value = id
                 });
@@ -122,8 +88,6 @@ namespace EmployeeRegister.DAL.Repository
                 command.Connection.Open();
 
                 command.ExecuteNonQuery();
-
-                command.Connection.Close();
             }
         }
 
@@ -132,7 +96,7 @@ namespace EmployeeRegister.DAL.Repository
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "SELECT Idn, PhoneNumber, Email FROM Employees JOIN Contacts ON @Id = EmployeeId";
+                    "SELECT Idn, PhoneNumber, Email FROM Employees JOIN Contacts ON @Id = Id";
 
                 var command = new SqlCommand(query, connection);
 

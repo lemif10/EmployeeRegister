@@ -2,8 +2,8 @@
 {
     public enum Role
     {
-        Visitor,
-        Editor,
-        Admin
+        Visitor = 0,
+        Editor = 1,
+        Admin = 2,
     }
 }

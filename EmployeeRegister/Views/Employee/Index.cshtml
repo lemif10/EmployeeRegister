@@ -1,5 +1,5 @@
 ﻿@using EmployeeRegister.Common.Models;
-@model IEnumerable<EmployeeRegister.Common.ViewModels.EmployeeViewModel>;
+@model IEnumerable<EmployeeRegister.ViewModels.EmployeeViewModel>;
 
 @{
     ViewData["Title"] = "Index";
@@ -28,7 +28,7 @@
                     <p>Описание: @Html.DisplayFor(modelItem => item.Department.Description)</p>
                 </span>
             </td>
-            <td>@Html.DisplayFor(modelItem => item.Contact.PhoneNumber)</td>
+            <td>@Html.DisplayFor(modelItem => item.ContactViewModel.PhoneNumber)</td>
             <td>
                 @Html.ActionLink("Details", "Details", new {id = item.Id})
                 @Html.ActionLink("Edit", "Edit", new {id = item.Id})

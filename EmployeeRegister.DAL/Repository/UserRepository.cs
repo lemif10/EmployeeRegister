@@ -8,42 +8,42 @@ using EmployeeRegister.DAL.Interfaces;
 
 namespace EmployeeRegister.DAL.Repository
 {
-    public class DepartmentRepository : IDepartmentRepository
+    public class UserRepository : IUserRepository
     {
-        private readonly ConnectionSettings _connectionSettings;
+       private readonly ConnectionSettings _connectionSettings;
 
-        public DepartmentRepository(ConnectionSettings connectionSettings)
+        public UserRepository(ConnectionSettings connectionSettings)
         {
             _connectionSettings = connectionSettings;
         }
         
-        public void Create(Department department)
+        public void Create(User user)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query = 
-                    "INSERT INTO Departments (Name, PhoneNumber, AddressD, Description) VALUES (@Name, @PhoneNumber, @AddressD, @Description)";
+                    "INSERT INTO AppUsers (Email, Login, Password, Role) VALUES (@Email, @Login, @Password, @Role)";
 
                 var command = new SqlCommand(query, connection);
 
-                command.Parameters.Add(new SqlParameter("Name", SqlDbType.Text)
+                command.Parameters.Add(new SqlParameter("Email", SqlDbType.Text)
                 {
-                    Value = department.Name
+                    Value = user.Email
                 });
                 
-                command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
+                command.Parameters.Add(new SqlParameter("Login", SqlDbType.Text)
                 {
-                    Value = department.PhoneNumber
+                    Value = user.Login
                 });
                 
-                command.Parameters.Add(new SqlParameter("AddressD", SqlDbType.Text)
+                command.Parameters.Add(new SqlParameter("Password", SqlDbType.Text)
                 {
-                    Value = department.Address
+                    Value = user.Password
                 });
                 
-                command.Parameters.Add(new SqlParameter("Description", SqlDbType.Text)
+                command.Parameters.Add(new SqlParameter("Role", SqlDbType.Int)
                 {
-                    Value = department.Description
+                    Value = user.Role
                 });
 
                 command.Connection.Open();
@@ -52,38 +52,38 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
 
-        public void Edit(Department department)
+        public void Edit(User user)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "UPDATE Departments SET Name=@Name, PhoneNumber=@PhoneNumber, AddressD=@Address, Description=@Description WHERE Idn=@Id";
+                    "UPDATE AppUsers SET Email=@Email, Login=@Login, Password=@Password, Role=@Role WHERE Id=@Id";
 
                 var command = new SqlCommand(query, connection);
 
                 command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
                 {
-                    Value = department.Id
+                    Value = user.Id
                 });
 
-                command.Parameters.Add(new SqlParameter("Name", SqlDbType.Text)
+                command.Parameters.Add(new SqlParameter("Email", SqlDbType.Text)
                 {
-                    Value = department.Name
+                    Value = user.Email
                 });
                 
-                command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
+                command.Parameters.Add(new SqlParameter("Login", SqlDbType.Text)
                 {
-                    Value = department.PhoneNumber
+                    Value = user.Login
                 });
 
-                command.Parameters.Add(new SqlParameter("Address", SqlDbType.Text)
+                command.Parameters.Add(new SqlParameter("Password", SqlDbType.Text)
                 {
-                    Value = department.Address
+                    Value = user.Password
                 });
                 
-                command.Parameters.Add(new SqlParameter("Description", SqlDbType.Text)
+                command.Parameters.Add(new SqlParameter("Role", SqlDbType.Int)
                 {
-                    Value = department.Description
+                    Value = user.Role
                 });
 
                 command.Connection.Open();
@@ -91,13 +91,14 @@ namespace EmployeeRegister.DAL.Repository
                 command.ExecuteNonQuery();
             }
         }
+        
 
         public void Delete(int id)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "DELETE FROM Departments WHERE Idn=@Id";
+                    "DELETE FROM AppUsers WHERE Id=@Id";
 
                 var command = new SqlCommand(query, connection);
 
@@ -111,15 +112,15 @@ namespace EmployeeRegister.DAL.Repository
                 command.ExecuteNonQuery();
             }
         }
-
-        public IEnumerable<Department> GetAll()
+        
+        public IEnumerable<User> GetAll()
         {
-            List<Department> departments = new List<Department>();
+            List<User> users = new List<User>();
             
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "SELECT * FROM Departments";
+                    "SELECT * FROM AppUsers";
 
                 var command = new SqlCommand(query, connection);
                 
@@ -131,34 +132,35 @@ namespace EmployeeRegister.DAL.Repository
                     {
                         while (reader.Read())
                         {
-                             departments.Add(new Department 
+                            users.Add(new User 
                             {
-                                Id = Convert.ToInt32(reader["Idn"]),
-                                PhoneNumber = reader["PhoneNumber"].ToString(),
-                                Name = reader["Name"].ToString(),
-                                Address = reader["AddressD"].ToString(),
-                                Description = reader["Description"].ToString()
+                                Id = Convert.ToInt32(reader["Id"]),
+                                Email = reader["Email"].ToString(),
+                                Login = reader["Login"].ToString(),
+                                Password = reader["Password"].ToString(),
+                                Role = Convert.ToInt32(reader["Role"])
                             });
                         }
                     }
                 }
 
-                return departments;
+                return users;
             }
         }
         
-        public Department Get(int departmentId)
+        
+        public User Get(string login)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "SELECT Idn, PhoneNumber, AddressD, Description, Name FROM Employees JOIN Departments ON @DepartmentId = Idn";
+                    "SELECT * FROM AppUsers WHERE Login = @Login";
 
                 var command = new SqlCommand(query, connection);
 
-                command.Parameters.Add(new SqlParameter("DepartmentId", SqlDbType.Int)
+                command.Parameters.Add(new SqlParameter("Login", SqlDbType.Text)
                 {
-                    Value = departmentId
+                    Value = login
                 });
 
                 command.Connection.Open();
@@ -169,19 +171,19 @@ namespace EmployeeRegister.DAL.Repository
                     {
                         while (reader.Read())
                         {
-                            return new Department
+                            return new User
                             {
-                                Id = Convert.ToInt32(reader["Idn"]),
-                                PhoneNumber = reader["PhoneNumber"].ToString(),
-                                Name = reader["Name"].ToString(),
-                                Address = reader["AddressD"].ToString(),
-                                Description = reader["Description"].ToString()
+                                Id = Convert.ToInt32(reader["Id"]),
+                                Email = reader["Email"].ToString(),
+                                Login = reader["Login"].ToString(),
+                                Password = reader["Password"].ToString(),
+                                Role = Convert.ToInt32(reader["Role"])
                             };
                         }
                     }
                 }
 
-                return new Department();
+                return new User();
             }
         }
     }

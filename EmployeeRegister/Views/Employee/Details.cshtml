@@ -1,5 +1,4 @@
-﻿@using EmployeeRegister.Common.Models;
-@model EmployeeRegister.Common.ViewModels.EmployeeViewModel;
+﻿@model EmployeeRegister.ViewModels.EmployeeViewModel;
 
 @{
     ViewData["Title"] = "Details";
@@ -13,8 +12,8 @@
 <p> Salary: @Html.ViewData.Model.Salary</p>
 
 <h2>Contacts</h2>
-<p> Phone number: @Html.ViewData.Model.Contact.PhoneNumber</p>
-<p> Email: @Html.ViewData.Model.Contact.Email</p>
+<p> Phone number: @Html.ViewData.Model.ContactViewModel.PhoneNumber</p>
+<p> Email: @Html.ViewData.Model.ContactViewModel.Email</p>
 
 <h2>Department</h2>
 <p> Name: @Html.ViewData.Model.Department.Name</p>

@@ -1,7 +1,7 @@
 using System;
-using EmployeeRegister.BusinessLogic.Interface;
+using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Models;
-using EmployeeRegister.Common.ViewModels;
+using EmployeeRegister.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -21,7 +21,7 @@ namespace EmployeeRegister.Controllers
 
         public IActionResult Index()
         {
-            return View(_departmentService.Index());
+            return View(_departmentService.GetAll());
         }
         
         public IActionResult Create()
@@ -35,7 +35,13 @@ namespace EmployeeRegister.Controllers
         {
             if (ModelState.IsValid)
             {
-                _departmentService.Create(departmentViewModel);
+                _departmentService.Create(new Department
+                {
+                    Name = departmentViewModel.Name,
+                    Address = departmentViewModel.Address,
+                    PhoneNumber = departmentViewModel.PhoneNumber,
+                    Description = departmentViewModel.Description
+                });
             
                 return RedirectToAction(nameof(Index));
             }
@@ -59,7 +65,15 @@ namespace EmployeeRegister.Controllers
         
         public IActionResult Edit(int id)
         {
-            return View(_departmentService.Get(id));
+            Department department = _departmentService.Get(id);
+            
+            return View(new DepartmentViewModel
+            {
+                Name = department.Name,
+                Address = department.Address,
+                Description = department.Description,
+                PhoneNumber = department.PhoneNumber
+            });
         }
         
         [HttpPost]
@@ -68,7 +82,14 @@ namespace EmployeeRegister.Controllers
         {
             if (ModelState.IsValid)
             {
-                _departmentService.Edit(departmentViewModel, id);
+                _departmentService.Edit(new Department
+                {
+                    Id = id,
+                    Name = departmentViewModel.Name,
+                    PhoneNumber = departmentViewModel.PhoneNumber,
+                    Address = departmentViewModel.Address,
+                    Description = departmentViewModel.Description
+                });
                 
                 return RedirectToAction(nameof(Index));
             }

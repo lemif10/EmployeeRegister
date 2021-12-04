@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using EmployeeRegister.BusinessLogic.Interface;
+using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Models;
-using EmployeeRegister.Common.ViewModels;
-using EmployeeRegister.DAL.Connection;
-using EmployeeRegister.DAL.Repository;
+using EmployeeRegister.DAL.Interfaces;
 
 namespace EmployeeRegister.BusinessLogic.Services
 {
@@ -21,39 +19,24 @@ namespace EmployeeRegister.BusinessLogic.Services
             _departmentRepository.Delete(id);
         }
         
-        public void Create(DepartmentViewModel departmentViewModel)
+        public void Create(Department department)
         {
-            _departmentRepository.Create(departmentViewModel);
+            _departmentRepository.Create(department);
         }
 
-        public DepartmentViewModel Get(int id)
+        public Department Get(int id)
         {
-            Department department = _departmentRepository.Get(id);
-
-            return new DepartmentViewModel
-            {
-                Name = department.Name,
-                Address = department.Address,
-                Description = department.Description,
-                PhoneNumber = department.PhoneNumber
-            };
+            return _departmentRepository.Get(id);
         }
 
-        public void Edit(DepartmentViewModel departmentViewModel, int id)
+        public void Edit(Department department)
         {
-            _departmentRepository.Edit( new Department
-            {
-                Id = id,
-                Address = departmentViewModel.Address,
-                Description = departmentViewModel.Description,
-                Name = departmentViewModel.Name,
-                PhoneNumber = departmentViewModel.PhoneNumber
-            });
+            _departmentRepository.Edit(department);
         }
         
-        public IEnumerable<Department> Index()
+        public IEnumerable<Department> GetAll()
         {
-            return _departmentRepository.Index();
+            return _departmentRepository.GetAll();
         }
     }
 }

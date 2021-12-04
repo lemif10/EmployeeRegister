@@ -4,28 +4,23 @@ using System.Data;
 using System.Data.SqlClient;
 using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
-using EmployeeRegister.Common.ViewModels;
 using EmployeeRegister.DAL.Connection;
+using EmployeeRegister.DAL.Interfaces;
 
 namespace EmployeeRegister.DAL.Repository
 {
     public class EmployeeRepository : IEmployeeRepository
     {
         private readonly ConnectionSettings _connectionSettings;
-        private readonly IContactRepository _contactRepository;
-        private readonly IDepartmentRepository _departmentRepository;
 
-        public EmployeeRepository(ConnectionSettings connectionSettings,
-            IContactRepository contactRepository, IDepartmentRepository departmentRepository)
+        public EmployeeRepository(ConnectionSettings connectionSettings)
         {
             _connectionSettings = connectionSettings;
-            _contactRepository = contactRepository;
-            _departmentRepository = departmentRepository;
         }
         
-        public IEnumerable<EmployeeViewModel> Index()
+        public IEnumerable<Employee> GetAll()
         {
-            List<EmployeeViewModel> employees = new List<EmployeeViewModel>();
+            List<Employee> employees = new List<Employee>();
 
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
@@ -42,16 +37,15 @@ namespace EmployeeRegister.DAL.Repository
                     {
                         while (reader.Read())
                         {
-                            employees.Add(new EmployeeViewModel()
+                            employees.Add(new Employee()
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 FullName = reader["FullName"].ToString(),
                                 Address = reader["Address"].ToString(),
-                                FamilyStatus = (FamilyStatus)Convert.ToInt32(reader["FamilyStatus"]),
+                                FamilyStatus = Convert.ToInt32(reader["FamilyStatus"]),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
                                 Salary = Convert.ToDecimal(reader["Salary"]),
-                                Contact = _contactRepository.Get(Convert.ToInt32(reader["Id"])),
-                                Department = _departmentRepository.Get(Convert.ToInt32(reader["DepartmentId"]))
+                                DepartmentId = Convert.ToInt32(reader["DepartmentId"])
                             });
                         }
                     }
@@ -61,7 +55,7 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
         
-        public EmployeeViewModel Get(int id)
+        public Employee Get(int id)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
@@ -83,23 +77,22 @@ namespace EmployeeRegister.DAL.Repository
                     {
                         while (reader.Read())
                         {
-                            return new EmployeeViewModel
+                            return new Employee
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
                                 FullName = reader["FullName"].ToString(),
                                 Address = reader["Address"].ToString(),
-                                FamilyStatus = (FamilyStatus)Convert.ToInt32(reader["FamilyStatus"]),
+                                FamilyStatus = Convert.ToInt32(reader["FamilyStatus"]),
                                 WorkExperience = Convert.ToDecimal(reader["WorkExperience"]),
                                 Salary = Convert.ToDecimal(reader["Salary"]),
-                                Contact = _contactRepository.Get(Convert.ToInt32(reader["Id"])),
-                                Department = _departmentRepository.Get(Convert.ToInt32(reader["DepartmentId"]))
+                                DepartmentId = Convert.ToInt32(reader["DepartmentId"])
                             };
                         }
                     }
                 }
             }
 
-            return new EmployeeViewModel();
+            return new Employee();
         }
         
         public void Create(Employee employee)

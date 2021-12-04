@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
 
-namespace EmployeeRegister.Common.ViewModels
+namespace EmployeeRegister.ViewModels
 {
     public class EmployeeViewModel
     {
@@ -15,7 +15,7 @@ namespace EmployeeRegister.Common.ViewModels
         
         public Department Department { get; set; }
         
-        public Contact Contact { get; set; }
+        public ContactViewModel ContactViewModel { get; set; }
 
         [Required]
         [StringLength(100)]

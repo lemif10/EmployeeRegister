@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace EmployeeRegister.Common.ViewModels
+namespace EmployeeRegister.ViewModels
 {
     public class DepartmentViewModel
     {
