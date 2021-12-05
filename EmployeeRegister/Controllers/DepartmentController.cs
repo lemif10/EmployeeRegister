@@ -2,11 +2,13 @@ using System;
 using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace EmployeeRegister.Controllers
 {
+    [Authorize(Roles = "Admin, Editor")]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService _departmentService;

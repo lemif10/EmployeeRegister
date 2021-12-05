@@ -9,6 +9,7 @@ namespace EmployeeRegister.ViewModels
         public string PhoneNumber { get; set; }
                 
         [Required]
+        [DataType(DataType.EmailAddress)]
         [StringLength(100)]
         public string Email { get; set; }
     }

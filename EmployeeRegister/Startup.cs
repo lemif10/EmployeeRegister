@@ -1,4 +1,5 @@
 using EmployeeRegister.Dependencies;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,8 @@ namespace EmployeeRegister
             services.AddIService();
             
             services.AddIRepository();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +37,8 @@ namespace EmployeeRegister
             
             app.UseStaticFiles();
 
+            app.UseAuthentication();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -42,7 +47,7 @@ namespace EmployeeRegister
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=HOme}/{action=HomePage}/{id?}");
+                    pattern: "{controller=Home}/{action=HomePage}/{id?}");
             });
         }
     }

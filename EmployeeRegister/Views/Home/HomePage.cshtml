@@ -3,3 +3,10 @@
 }
 
 <p>домашняя страница</p>
+
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        Hello, @User.Identity.Name
+    </div>
+}
