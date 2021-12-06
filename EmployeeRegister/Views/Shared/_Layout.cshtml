@@ -27,23 +27,35 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Search">Search</a>
                     </li>
                     
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="Index">Departmens</a>
-                    </li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="Index">Departmens</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                        </li>
+                    }
                     
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Registration">Registration</a>
                     </li>
                     
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Login">Login</a>
-                    </li>
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Login">Login</a>
+                        </li>
+                    }
+                    
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a>
                         </li>
                     }
+                    
                 </ul>
             </div>
         </div>

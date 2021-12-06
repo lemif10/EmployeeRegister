@@ -24,6 +24,7 @@ namespace EmployeeRegister.Dependencies
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             services.AddTransient<IContactRepository, ContactRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IAuthService, AuthService>();
         }
         
         public static void AddIService(this IServiceCollection services)

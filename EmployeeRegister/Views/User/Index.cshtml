@@ -1,0 +1,32 @@
+@using EmployeeRegister.Common.Models;
+@using EmployeeRegister.Common.Enums
+@model IEnumerable<User>;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>Departments</h3>
+
+@Html.ActionLink("Register New", "Create")
+
+<table class="table">
+    <tr>
+        <th>Email</th>
+        <th>Login</th>
+        <th>Role</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Email)</td>
+            <td>@Html.DisplayFor(modelItem => item.Login)</td>
+            <td>@((Role)item.Role)</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id})
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+            </td>
+        </tr>
+    }
+</table>

@@ -9,4 +9,8 @@
       <ProjectReference Include="..\EmployeeRegister.DAL\EmployeeRegister.DAL.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Serilog" Version="2.11.0-dev-01371" />
+    </ItemGroup>
+
 </Project>

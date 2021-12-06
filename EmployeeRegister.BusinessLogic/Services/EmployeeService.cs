@@ -10,13 +10,13 @@ namespace EmployeeRegister.BusinessLogic.Services
 {
     public class EmployeeService : IEmployeeService
     {
-        private readonly ContactRepository _contactRepository;
+        private readonly IContactRepository _contactRepository;
         private readonly IEmployeeRepository _employeeRepository;
         
-        public EmployeeService(ConnectionSettings connectionSettings, IEmployeeRepository employeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IContactRepository contactRepository)
         {
-            _contactRepository = new ContactRepository(connectionSettings);
             _employeeRepository = employeeRepository;
+            _contactRepository = contactRepository;
         }
         
         public Employee Get(int id)

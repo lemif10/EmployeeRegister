@@ -1,10 +1,8 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using EmployeeRegister.ViewModels;
 
 namespace EmployeeRegister.Controllers
@@ -14,17 +12,13 @@ namespace EmployeeRegister.Controllers
         private readonly IEmployeeService _employeeService;
         private readonly IDepartmentService _departmentService;
         private readonly IContactService _contactService;
-        
-        private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(ILogger<EmployeeController> logger,
-            IEmployeeService employeeService, IDepartmentService departmentService,
-            IContactService contactService)
+        public EmployeeController(IEmployeeService employeeService,
+            IDepartmentService departmentService, IContactService contactService)
         {
             _departmentService = departmentService;
             _contactService = contactService;
             _employeeService = employeeService;
-            _logger = logger;
         }
         
         public IActionResult Create()
@@ -155,7 +149,6 @@ namespace EmployeeRegister.Controllers
                 Salary = employee.Salary,
                 WorkExperience = employee.WorkExperience,
                 Departments = _departmentService.GetAll()
-                
             });
         }
         

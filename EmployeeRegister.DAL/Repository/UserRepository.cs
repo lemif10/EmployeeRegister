@@ -57,7 +57,7 @@ namespace EmployeeRegister.DAL.Repository
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "UPDATE AppUsers SET Email=@Email, Login=@Login, Password=@Password, Role=@Role WHERE Id=@Id";
+                    "UPDATE AppUsers SET Email=@Email, Login=@Login, Role=@Role WHERE Id=@Id";
 
                 var command = new SqlCommand(query, connection);
 
@@ -76,11 +76,6 @@ namespace EmployeeRegister.DAL.Repository
                     Value = user.Login
                 });
 
-                command.Parameters.Add(new SqlParameter("Password", SqlDbType.Text)
-                {
-                    Value = user.Password
-                });
-                
                 command.Parameters.Add(new SqlParameter("Role", SqlDbType.Int)
                 {
                     Value = user.Role
@@ -92,7 +87,6 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
         
-
         public void Delete(int id)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
@@ -148,19 +142,18 @@ namespace EmployeeRegister.DAL.Repository
             }
         }
         
-        
-        public User Get(string login)
+        public User Get(int id)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "SELECT * FROM AppUsers WHERE Login = @Login";
+                    "SELECT * FROM AppUsers WHERE Id = @Id";
 
                 var command = new SqlCommand(query, connection);
 
-                command.Parameters.Add(new SqlParameter("Login", SqlDbType.Text)
+                command.Parameters.Add(new SqlParameter("Id", SqlDbType.Int)
                 {
-                    Value = login
+                    Value = id
                 });
 
                 command.Connection.Open();

@@ -13,8 +13,6 @@
         public int FamilyStatus { get; set; }
 
         public decimal WorkExperience { get; set; }
-        
-        //TODO тут будет поле для фотографий, просто разберуюсь с их хранением и выводом)
 
         public decimal Salary { get; set; }
     }

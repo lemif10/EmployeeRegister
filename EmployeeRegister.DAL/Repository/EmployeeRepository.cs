@@ -137,8 +137,6 @@ namespace EmployeeRegister.DAL.Repository
                 command.Connection.Open();
 
                 command.ExecuteNonQuery();
-                
-                command.Connection.Close();
             }
         }
 
@@ -189,8 +187,6 @@ namespace EmployeeRegister.DAL.Repository
                 command.Connection.Open();
 
                 command.ExecuteNonQuery();
-                
-                command.Connection.Close();
             }
         }
 
@@ -211,8 +207,6 @@ namespace EmployeeRegister.DAL.Repository
                 command.Connection.Open();
 
                 command.ExecuteNonQuery();
-
-                command.Connection.Close();
             }
         }
     }

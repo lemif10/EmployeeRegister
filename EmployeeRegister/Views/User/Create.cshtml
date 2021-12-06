@@ -1,0 +1,32 @@
+@model EmployeeRegister.ViewModels.UserViewModel;
+
+@{
+    ViewData["Title"] = "Create";
+}
+<form asp-controller="User" asp-action="Create" method="post">
+    <div class="form-group">
+        <label class="control-label">Login: </label>
+        @Html.EditorFor(x => x.Login)
+        <span asp-validation-for="Login" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Email: </label>
+        @Html.EditorFor(x => x.Email)
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label">Password: </label>
+        @Html.EditorFor(x => x.Password)
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">ConfirmPassword: </label>
+        @Html.EditorFor(x => x.ConfirmPassword)
+        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+    </div>
+    
+    <input type="submit" value="Create">
+</form>

@@ -7,7 +7,7 @@ namespace EmployeeRegister.BusinessLogic.Interfaces
     {
         IEnumerable<User> GetAll();
         
-        User Get(string login);
+        User Get(int id);
         
         void Delete(int id);
 

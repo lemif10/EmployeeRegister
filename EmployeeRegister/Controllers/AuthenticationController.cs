@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Enums;
@@ -12,22 +8,20 @@ using EmployeeRegister.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace EmployeeRegister.Controllers
 {
     public class AuthenticationController : Controller
     {
         private readonly IUserService _userService;
-        
-        private readonly ILogger<AuthenticationController> _logger;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, IUserService userService)
+        private readonly IAuthService _authService;
+
+        public AuthenticationController(IUserService userService, IAuthService authService)
         {
-            _logger = logger;
             _userService = userService;
+            _authService = authService;
         }
 
         public IActionResult Login()
@@ -45,27 +39,23 @@ namespace EmployeeRegister.Controllers
         {
             if (ModelState.IsValid)
             {
-                MD5 md5 = MD5.Create();
-                var hashPassword = md5.ComputeHash(Encoding.UTF8.GetBytes(userLoginViewModel.Password));
-                
-                foreach (User user in _userService.GetAll())
+                if (_authService.IsLogin(userLoginViewModel.Login, userLoginViewModel.Password, out int id))
                 {
-                    if (user.Login == userLoginViewModel.Login && Convert.ToBase64String(hashPassword) == user.Password)
+                    User user = _userService.Get(id);
+                    
+                    var claims = new List<Claim>
                     {
-                        var claims = new List<Claim>
-                        {
-                            new Claim(ClaimTypes.Name, user.Email),
-                            new Claim(ClaimTypes.Role, ((Role)user.Role).ToString())
-                        };
+                        new Claim(ClaimTypes.Name, user.Email),
+                        new Claim(ClaimTypes.Role, ((Role)user.Role).ToString())
+                    };
 
-                        var claimIdentity =
-                            new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimIdentity =
+                        new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                            new ClaimsPrincipal(claimIdentity));
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimIdentity));
                         
-                        return RedirectToAction("HomePage","Home");
-                    }
+                    return RedirectToAction("HomePage","Home");
                 }
             }
 
@@ -82,22 +72,16 @@ namespace EmployeeRegister.Controllers
         {
             if (ModelState.IsValid)
             {
-                foreach (User user in _userService.GetAll())
+                if (_authService.IsRegistration(userViewModel.Login, userViewModel.Email))
                 {
-                    if (user.Login == userViewModel.Login || user.Email == userViewModel.Email)
-                    {
-                        return View(userViewModel);
-                    }
+                    return View(userViewModel);
                 }
-                
-                MD5 md5 = MD5.Create();
-                var hashPassword = md5.ComputeHash(Encoding.UTF8.GetBytes(userViewModel.Password));
                 
                 _userService.Create(new User
                 {
                     Email = userViewModel.Email,
                     Login = userViewModel.Login,
-                    Password = Convert.ToBase64String(hashPassword),
+                    Password = userViewModel.Password,
                     Role = (int)userViewModel.Role
                 });
                 

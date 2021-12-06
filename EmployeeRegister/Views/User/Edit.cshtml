@@ -1,0 +1,29 @@
+@using EmployeeRegister.Common.Enums
+@model EmployeeRegister.ViewModels.UserViewModel;
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<form asp-controller="User" asp-action="Edit" method="post">
+    
+    <div class="form-group">
+        <label class="control-label">Login: </label>
+        @Html.EditorFor(x => x.Login)
+        <span asp-validation-for="Login" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Email: </label>
+        @Html.EditorFor(x => x.Email)
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label">Role: </label>
+        @Html.DropDownListFor(x => x.Role,
+            new SelectList(Enum.GetNames(typeof(Role))))
+    </div>
+
+    <input type="submit" value="Edit">
+</form>
