@@ -12,13 +12,10 @@ namespace EmployeeRegister.Controllers
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService _departmentService;
-
-        private readonly ILogger<EmployeeController> _logger;
-
+        
         public DepartmentController(ILogger<EmployeeController> logger, IDepartmentService departmentService)
         {
             _departmentService = departmentService;
-            _logger = logger;
         }
 
         public IActionResult Index()
