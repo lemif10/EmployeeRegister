@@ -1,0 +1,45 @@
+@model IEnumerable<EmployeeRegister.ViewModels.EmployeeViewModel>;
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+            <td class="tooltype">
+                @Html.DisplayFor(modelItem => item.Department.Name)
+                <span class="tooltiptext">
+                    <p>Адресс: @Html.DisplayFor(modelItem => item.Department.Address)</p>
+                    <p>Телефон: @Html.DisplayFor(modelItem => item.Department.PhoneNumber)</p>
+                    <p>Описание: @Html.DisplayFor(modelItem => item.Department.Description)</p>
+                </span>
+            </td>
+            <td>@Html.DisplayFor(modelItem => item.ContactViewModel.PhoneNumber)</td>
+            
+            @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Details", "Details", new {id = item.Id})
+                    @Html.ActionLink("Edit", "Edit", new {id = item.Id})
+                    @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+                </td>
+            }
+        </tr>
+    }
+
+<style>    
+    .tooltype .tooltiptext {
+      visibility: hidden;
+      width: 240px;
+      background-color: white;
+      color: #070707;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+    }
+        
+    .tooltype:hover .tooltiptext {
+      visibility: visible;
+    }
+</style>

@@ -30,12 +30,15 @@
         <span asp-validation-for="WorkExperience" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label class="control-label">Salary: </label>
-        @Html.EditorFor(x => x.Salary)
-        <span asp-validation-for="Salary" class="text-danger"></span>
-    </div>
-
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="form-group">
+            <label class="control-label">Salary: </label>
+            @Html.EditorFor(x => x.Salary)
+            <span asp-validation-for="Salary" class="text-danger"></span>
+        </div>
+    }
+    
     <div class="form-group">
         <label class="control-label">PhoneNumber: </label>
         @Html.EditorFor(x => x.ContactViewModel.PhoneNumber)

@@ -25,7 +25,7 @@ namespace EmployeeRegister
             Log.Logger = new LoggerConfiguration().ReadFrom.Configuration(Configuration,"Serilog").CreateLogger();
             
             services.AddSingleton(Log.Logger);
-            
+
             services.AddControllersWithViews();
             
             services.AddConnectionSettings(Configuration);

@@ -15,7 +15,6 @@ namespace EmployeeRegister.Controllers
     public class AuthenticationController : Controller
     {
         private readonly IUserService _userService;
-
         private readonly IAuthService _authService;
 
         public AuthenticationController(IUserService userService, IAuthService authService)
@@ -82,7 +81,7 @@ namespace EmployeeRegister.Controllers
                     Email = userViewModel.Email,
                     Login = userViewModel.Login,
                     Password = userViewModel.Password,
-                    Role = (int)userViewModel.Role
+                    Role = 0
                 });
                 
                 return RedirectToAction(nameof(Login));

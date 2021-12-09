@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
@@ -112,13 +113,40 @@ namespace EmployeeRegister.Controllers
                     WorkExperience = employee.WorkExperience
                 });
             }
-            
-            return View(employeeViewModels);
+
+            return PartialView(employeeViewModels);
         }
         
-        public IActionResult Search()
+        [HttpPost]
+        public IActionResult Index(string filter)
         {
-            return View();
+            ViewBag.filter = filter;
+            
+            List<EmployeeViewModel> employeeViewModels = new List<EmployeeViewModel>();
+            
+            foreach (Employee employee in _employeeService.GetAll())
+            {
+                Contact contact = _contactService.Get(employee.Id);
+                ContactViewModel contactViewModel = new ContactViewModel
+                {
+                    PhoneNumber = contact.PhoneNumber,
+                    Email = contact.Email
+                };
+                
+                employeeViewModels.Add(new EmployeeViewModel
+                {
+                    Id = employee.Id,
+                    FullName = employee.FullName,
+                    Address = employee.Address,
+                    ContactViewModel = contactViewModel,
+                    Department = _departmentService.Get(employee.DepartmentId),
+                    FamilyStatus = (FamilyStatus)employee.FamilyStatus,
+                    Salary = employee.Salary,
+                    WorkExperience = employee.WorkExperience
+                });
+            }
+
+            return PartialView(filter == null ? employeeViewModels : employeeViewModels.Where(x => x.FullName.Contains(filter)));
         }
 
         public IActionResult Delete(int id)

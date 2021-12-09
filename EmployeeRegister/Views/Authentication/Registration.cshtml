@@ -1,5 +1,4 @@
-﻿@using EmployeeRegister.Common.Enums
-@model EmployeeRegister.ViewModels.UserViewModel
+﻿@model EmployeeRegister.ViewModels.UserViewModel
 
 @{
     ViewData["Title"] = "Registration";
@@ -28,12 +27,6 @@
             @Html.EditorFor(x => x.ConfirmPassword)
             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
         </div>
-    
-    <div class="form-group">
-        <label class="control-label">Role: </label>
-        @Html.DropDownListFor(x => x.Role,
-            new SelectList(Enum.GetNames(typeof(Role))))
-    </div>
     
     <input type="submit" value="Registration">
 </form>
