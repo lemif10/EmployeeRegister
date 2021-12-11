@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
-using System.Text;
 using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
@@ -39,6 +34,7 @@ namespace EmployeeRegister.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(UserViewModel userViewModel)
         {
             if (ModelState.IsValid)
@@ -74,6 +70,7 @@ namespace EmployeeRegister.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(UserViewModel userViewModel, int id)
         {
             _userService.Edit(new User

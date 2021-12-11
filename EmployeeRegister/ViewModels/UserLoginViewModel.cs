@@ -11,6 +11,7 @@ namespace EmployeeRegister.ViewModels
         
         [Required]
         [MinLength(5)]
+        [StringLength(20)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

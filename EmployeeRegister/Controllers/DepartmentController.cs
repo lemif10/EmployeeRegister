@@ -1,10 +1,8 @@
-using System;
 using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 namespace EmployeeRegister.Controllers
 {
@@ -13,7 +11,7 @@ namespace EmployeeRegister.Controllers
     {
         private readonly IDepartmentService _departmentService;
         
-        public DepartmentController(ILogger<EmployeeController> logger, IDepartmentService departmentService)
+        public DepartmentController(IDepartmentService departmentService)
         {
             _departmentService = departmentService;
         }

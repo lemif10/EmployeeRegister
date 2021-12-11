@@ -96,7 +96,7 @@ namespace EmployeeRegister.DAL.Repository
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query =
-                    "SELECT Idn, PhoneNumber, Email FROM Employees JOIN Contacts ON @Id = Id";
+                    "SELECT Idn, PhoneNumber, Email FROM Contacts WHERE Idn = @Id";
 
                 var command = new SqlCommand(query, connection);
 

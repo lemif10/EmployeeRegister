@@ -34,6 +34,7 @@ namespace EmployeeRegister.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserLoginViewModel userLoginViewModel)
         {
             if (ModelState.IsValid)
@@ -67,6 +68,7 @@ namespace EmployeeRegister.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Registration(UserViewModel userViewModel)
         {
             if (ModelState.IsValid)
