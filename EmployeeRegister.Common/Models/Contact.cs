@@ -1,4 +1,6 @@
-﻿namespace EmployeeRegister.Common.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace EmployeeRegister.Common.Models
 {
     public class Contact
     {

@@ -2,8 +2,8 @@
 {
     public enum FamilyStatus
     {
-        Single,
-        Married,
-        Widowed
+        Single = 0,
+        Married = 1,
+        Widowed = 2,
     }
 }
