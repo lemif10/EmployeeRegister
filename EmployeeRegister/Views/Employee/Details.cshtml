@@ -1,0 +1,40 @@
+﻿@model EmployeeRegister.ViewModels.EmployeeViewModel;
+
+@{
+    ViewData["Title"] = "Employee details";
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Details</title>
+</head>
+
+<body>
+<h2>Personal Info</h2>
+<p> Full name: @Html.ViewData.Model.FullName</p>
+<p> Address: @Html.ViewData.Model.Address</p>
+<p> Family status: @Html.ViewData.Model.FamilyStatus</p>
+<p> Work experience: @Html.ViewData.Model.WorkExperience</p>
+<p> Salary: @Html.ViewData.Model.Salary</p>
+
+<h2>Contacts</h2>
+<p> Phone number: @Html.ViewData.Model.ContactViewModel.PhoneNumber</p>
+<p> Email: @Html.ViewData.Model.ContactViewModel.Email</p>
+
+<h2>Department</h2>
+<p> Name: @Html.ViewData.Model.Department.Name</p>
+<p> Address: @Html.ViewData.Model.Department.Address</p>
+<p> Phone number: @Html.ViewData.Model.Department.PhoneNumber</p>
+<p> Description: @Html.ViewData.Model.Department.Description</p>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
+</body>
