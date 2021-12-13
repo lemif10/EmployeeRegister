@@ -13,6 +13,8 @@ namespace EmployeeRegister.ViewModels
         [StringLength(100)]
         public string FullName { get; set; }
         
+        public string Photo { get; set; }
+
         public Department Department { get; set; }
         
         public ContactViewModel ContactViewModel { get; set; }

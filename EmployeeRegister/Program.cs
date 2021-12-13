@@ -2,6 +2,7 @@ using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Azure.Identity;
+using EmployeeRegister.BusinessLogic.Azure;
 using Microsoft.Extensions.Configuration;
 
 

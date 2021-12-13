@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using EmployeeRegister.BusinessLogic.Azure;
 using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
@@ -14,11 +17,14 @@ namespace EmployeeRegister.Controllers
         private readonly IDepartmentService _departmentService;
         private readonly IContactService _contactService;
 
+        private readonly IAzureService _azureService;
+
         public EmployeeController(IEmployeeService employeeService,
-            IDepartmentService departmentService, IContactService contactService)
+            IDepartmentService departmentService, IContactService contactService, IAzureService azureService)
         {
             _departmentService = departmentService;
             _contactService = contactService;
+            _azureService = azureService;
             _employeeService = employeeService;
         }
         
@@ -32,13 +38,17 @@ namespace EmployeeRegister.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(EmployeeViewModel employeeViewModel)
+        public async Task<IActionResult> Create(EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
+                List<EmployeeViewModel> employeeViewModels = new List<EmployeeViewModel>();
+                List<string> imageUrls = await _azureService.GetImageUrls();
+
                 _employeeService.Create(new Employee
                 {
                     Address = employeeViewModel.Address,
+                    Photo = imageUrls[new Random().Next(0, imageUrls.Count)],
                     DepartmentId = employeeViewModel.Department.Id,
                     FamilyStatus = (int)employeeViewModel.FamilyStatus,
                     FullName = employeeViewModel.FullName,
@@ -79,7 +89,8 @@ namespace EmployeeRegister.Controllers
             return View(new EmployeeViewModel
             {
                 FullName = employee.FullName,
-                Address = employee.Address,
+                Photo = employee.Photo,
+                    Address = employee.Address,
                 ContactViewModel = contactViewModel,
                 Department = _departmentService.Get(employee.DepartmentId),
                 FamilyStatus = (FamilyStatus)employee.FamilyStatus,
@@ -91,7 +102,7 @@ namespace EmployeeRegister.Controllers
         public IActionResult Index()
         {
             List<EmployeeViewModel> employeeViewModels = new List<EmployeeViewModel>();
-            
+
             foreach (Employee employee in _employeeService.GetAll())
             {
                 Contact contact = _contactService.Get(employee.Id);
@@ -104,6 +115,7 @@ namespace EmployeeRegister.Controllers
                 employeeViewModels.Add(new EmployeeViewModel
                 {
                     Id = employee.Id,
+                    Photo = employee.Photo,
                     FullName = employee.FullName,
                     Address = employee.Address,
                     ContactViewModel = contactViewModel,
@@ -121,7 +133,7 @@ namespace EmployeeRegister.Controllers
         public IActionResult Index(string filter)
         {
             ViewBag.filter = filter;
-            
+
             List<EmployeeViewModel> employeeViewModels = new List<EmployeeViewModel>();
             
             foreach (Employee employee in _employeeService.GetAll())
@@ -136,6 +148,7 @@ namespace EmployeeRegister.Controllers
                 employeeViewModels.Add(new EmployeeViewModel
                 {
                     Id = employee.Id,
+                    Photo = employee.Photo,
                     FullName = employee.FullName,
                     Address = employee.Address,
                     ContactViewModel = contactViewModel,
@@ -146,7 +159,7 @@ namespace EmployeeRegister.Controllers
                 });
             }
 
-            return PartialView(filter == null ? employeeViewModels : employeeViewModels.Where(x => x.FullName.Contains(filter)));
+            return PartialView(filter == null ? employeeViewModels : employeeViewModels.Where(x => x.FullName.ToLower().Contains(filter.ToLower())));
         }
 
         public IActionResult Delete(int id)
