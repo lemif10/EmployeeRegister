@@ -26,25 +26,13 @@ namespace EmployeeRegister.DAL.Repository
 
                 var command = new SqlCommand(query, connection);
 
-                command.Parameters.Add(new SqlParameter("Name", SqlDbType.Text)
-                {
-                    Value = department.Name
-                });
-                
-                command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
-                {
-                    Value = department.PhoneNumber
-                });
-                
-                command.Parameters.Add(new SqlParameter("AddressD", SqlDbType.Text)
-                {
-                    Value = department.Address
-                });
-                
-                command.Parameters.Add(new SqlParameter("Description", SqlDbType.Text)
-                {
-                    Value = department.Description
-                });
+                command.Parameters.AddWithValue("Name", department.Name);
+
+                command.Parameters.AddWithValue("PhoneNumber", department.PhoneNumber);
+
+                command.Parameters.AddWithValue("AddressD", department.Address);
+
+                command.Parameters.AddWithValue("Description", department.Description);
 
                 command.Connection.Open();
 
@@ -66,25 +54,13 @@ namespace EmployeeRegister.DAL.Repository
                     Value = department.Id
                 });
 
-                command.Parameters.Add(new SqlParameter("Name", SqlDbType.Text)
-                {
-                    Value = department.Name
-                });
-                
-                command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
-                {
-                    Value = department.PhoneNumber
-                });
+                command.Parameters.AddWithValue("Name", department.Name);
 
-                command.Parameters.Add(new SqlParameter("Address", SqlDbType.Text)
-                {
-                    Value = department.Address
-                });
-                
-                command.Parameters.Add(new SqlParameter("Description", SqlDbType.Text)
-                {
-                    Value = department.Description
-                });
+                command.Parameters.AddWithValue("PhoneNumber", department.PhoneNumber);
+
+                command.Parameters.AddWithValue("AddressD", department.Address);
+
+                command.Parameters.AddWithValue("Description", department.Description);
 
                 command.Connection.Open();
 

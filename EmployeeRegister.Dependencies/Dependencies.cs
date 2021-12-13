@@ -14,7 +14,7 @@ namespace EmployeeRegister.Dependencies
         {
             services.AddSingleton(new ConnectionSettings
             {
-                ConnectionString = configuration.GetConnectionString("DefaultConnection") 
+                ConnectionString = configuration.GetConnectionString("DefaultConnection")
             });
         }
 

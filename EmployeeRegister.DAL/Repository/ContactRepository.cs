@@ -24,16 +24,10 @@ namespace EmployeeRegister.DAL.Repository
                     "INSERT INTO Contacts (PhoneNumber, Email) VALUES (@PhoneNumber, @Email)";
 
                 var command = new SqlCommand(query, connection);
-                
-                command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
-                {
-                    Value = contact.PhoneNumber
-                });
-                
-                command.Parameters.Add(new SqlParameter("Email", SqlDbType.Text)
-                {
-                    Value = contact.Email
-                });
+
+                command.Parameters.AddWithValue("PhoneNumber", contact.PhoneNumber);
+
+                command.Parameters.AddWithValue("Email", contact.Email);
 
                 command.Connection.Open();
 
@@ -55,15 +49,9 @@ namespace EmployeeRegister.DAL.Repository
                     Value = contact.Id
                 });
 
-                command.Parameters.Add(new SqlParameter("PhoneNumber", SqlDbType.Text)
-                {
-                    Value = contact.PhoneNumber
-                });
+                command.Parameters.AddWithValue("PhoneNumber", contact.PhoneNumber);
 
-                command.Parameters.Add(new SqlParameter("Email", SqlDbType.Text)
-                {
-                    Value = contact.Email
-                });
+                command.Parameters.AddWithValue("Email", contact.Email);
 
                 command.Connection.Open();
 

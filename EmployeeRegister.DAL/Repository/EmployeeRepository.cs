@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
 using EmployeeRegister.DAL.Connection;
 using EmployeeRegister.DAL.Interfaces;
@@ -104,21 +103,15 @@ namespace EmployeeRegister.DAL.Repository
 
                 var command = new SqlCommand(query, connection);
 
-                command.Parameters.Add(new SqlParameter("FullName", SqlDbType.Text)
-                {
-                    Value = employee.FullName
-                });
+                command.Parameters.AddWithValue("FullName", employee.FullName);
                 
                 command.Parameters.Add(new SqlParameter("DepartmentId", SqlDbType.Int)
                 {
                     Value = employee.DepartmentId
                 });
-                
-                command.Parameters.Add(new SqlParameter("Address", SqlDbType.Text)
-                {
-                    Value = employee.Address
-                });
-                
+
+                command.Parameters.AddWithValue("Address", employee.Address);
+
                 command.Parameters.Add(new SqlParameter("FamilyStatus", SqlDbType.Int)
                 {
                     Value = employee.FamilyStatus
@@ -153,22 +146,16 @@ namespace EmployeeRegister.DAL.Repository
                 {
                     Value = employee.Id
                 });
-                
-                command.Parameters.Add(new SqlParameter("FullName", SqlDbType.Text)
-                {
-                    Value = employee.FullName
-                });
+
+                command.Parameters.AddWithValue("FullName", employee.FullName);
                 
                 command.Parameters.Add(new SqlParameter("DepartmentId", SqlDbType.Int)
                 {
                     Value = employee.DepartmentId
                 });
-                
-                command.Parameters.Add(new SqlParameter("Address", SqlDbType.Text)
-                {
-                    Value = employee.Address
-                });
-                
+
+                command.Parameters.AddWithValue("Address", employee.Address);
+
                 command.Parameters.Add(new SqlParameter("FamilyStatus", SqlDbType.Int)
                 {
                     Value = employee.FamilyStatus

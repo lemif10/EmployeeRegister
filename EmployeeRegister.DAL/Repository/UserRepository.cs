@@ -26,15 +26,9 @@ namespace EmployeeRegister.DAL.Repository
 
                 var command = new SqlCommand(query, connection);
 
-                command.Parameters.Add(new SqlParameter("Email", SqlDbType.Text)
-                {
-                    Value = user.Email
-                });
-                
-                command.Parameters.Add(new SqlParameter("Login", SqlDbType.Text)
-                {
-                    Value = user.Login
-                });
+                command.Parameters.AddWithValue("Email", user.Email);
+
+                command.Parameters.AddWithValue("Login", user.Login);
                 
                 command.Parameters.Add(new SqlParameter("Password", SqlDbType.Text)
                 {
@@ -66,15 +60,9 @@ namespace EmployeeRegister.DAL.Repository
                     Value = user.Id
                 });
 
-                command.Parameters.Add(new SqlParameter("Email", SqlDbType.Text)
-                {
-                    Value = user.Email
-                });
-                
-                command.Parameters.Add(new SqlParameter("Login", SqlDbType.Text)
-                {
-                    Value = user.Login
-                });
+                command.Parameters.AddWithValue("Email", user.Email);
+
+                command.Parameters.AddWithValue("Login", user.Login);
 
                 command.Parameters.Add(new SqlParameter("Role", SqlDbType.Int)
                 {
