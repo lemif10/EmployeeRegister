@@ -2,56 +2,56 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>@ViewData["Title"] - EmployeeRegister</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/BootsWatchLux.css"/>
     <link rel="stylesheet" href="~/css/site.css"/>
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="HomePage">EmployeeRegister</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Employee" asp-action="Index">Employees</a>
-                    </li>
-
-                    @if (User.IsInRole("Admin"))
-                    {
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="HomePage">EmployeeRegister</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor02">
+                    <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Department" asp-action="Index">Departmens</a>
+                            <a class="nav-link" asp-controller="Employee" asp-action="Index">Employees</a>
+                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Department" asp-action="Index">Departmens</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Index">Users</a>
+                            <a class="nav-link" asp-controller="User" asp-action="Index">Usert</a>
                         </li>
-                    }
-                    
-                    <div style="position: absolute; right: 0; margin-right: 10%; display: flex">
+                        }
+
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                            <li class="d-flex" style="position: absolute; right: 0; margin-right: 10%; display: flex">
+                                <a class="nav-link" asp-controller="Authentication" asp-action="Logout">Logout</a>
                             </li>
                         }
                         else
                         {
+                            <div style="position: absolute; right: 0; margin-right: 10%; display: flex">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Registration">Registration</a>
+                                <a class="nav-link me-sm-2" asp-controller="Authentication" asp-action="Registration">Registration</a>
                             </li>
+
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Authentication" asp-action="Login">Login</a>
+                                <a class="nav-link my-2 my-sm-0" asp-area="" asp-controller="Authentication" asp-action="Login">Login</a>
                             </li>
-                        }                  
-                </ul>
-            </div>
-        </div>
-    </nav>
+                            </div>
+                        }
+                    </ul>                    
+                </div>
+            </div>           
+        </nav>
 </header>
 <div class="container">
     <main role="main" class="pb-3">
@@ -59,7 +59,7 @@
     </main>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
 @await RenderSectionAsync("Scripts", required: false)
 </body>
