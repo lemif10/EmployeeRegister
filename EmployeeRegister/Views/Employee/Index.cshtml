@@ -15,27 +15,21 @@
             display: flex;
             justify-content: space-between;
         }
-
-        ::placeholder {
-            
-        }
     </style>
 </head>
 
 <body>
-@if (User.IsInRole("Editor") || User.IsInRole("Admin"))
-{
-    @Html.ActionLink("Register New", "Create")
-}
 @using (Html.BeginForm())
 {
-    <div class="header">
+        <div class="header">
             <input class="form-control me-sm-2" type="text" placeholder="Введите имя работника" value="@ViewBag.filte" name="filter">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Поиск</button>
-    </div>
+            <button class="btn btn-dark" type="submit">Поиск</button>
+        </div>
 
-
-    <h3>Employees</h3>
+        @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+        {
+            @Html.ActionLink("Register New", "Create")
+        }
 
     <table class="table">
         <tr>

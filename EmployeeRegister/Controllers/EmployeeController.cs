@@ -186,31 +186,31 @@ namespace EmployeeRegister.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(EmployeeViewModel employeeViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                _employeeService.Edit(new Employee
-                {
-                    Id = employeeViewModel.Id,
-                    Address = employeeViewModel.Address,
-                    DepartmentId = employeeViewModel.Department.Id,
-                    FamilyStatus = (int)employeeViewModel.FamilyStatus,
-                    FullName = employeeViewModel.FullName,
-                    Salary = employeeViewModel.Salary,
-                    WorkExperience = employeeViewModel.WorkExperience
-                });
-                
-                _contactService.Edit(new Contact
-                {
-                    Id = employeeViewModel.Id,
-                    Email = employeeViewModel.ContactViewModel.Email,
-                    PhoneNumber = employeeViewModel.ContactViewModel.PhoneNumber
-                });
-                
-                return RedirectToAction(nameof(Index));
-            }
-
             try
             {
+                if (ModelState.IsValid)
+                {
+                    _employeeService.Edit(new Employee
+                    {
+                        Id = employeeViewModel.Id,
+                        Address = employeeViewModel.Address,
+                        DepartmentId = employeeViewModel.Department.Id,
+                        FamilyStatus = (int)employeeViewModel.FamilyStatus,
+                        FullName = employeeViewModel.FullName,
+                        Salary = employeeViewModel.Salary,
+                        WorkExperience = employeeViewModel.WorkExperience
+                    });
+
+                    _contactService.Edit(new Contact
+                    {
+                        Id = employeeViewModel.Id,
+                        Email = employeeViewModel.ContactViewModel.Email,
+                        PhoneNumber = employeeViewModel.ContactViewModel.PhoneNumber
+                    });
+
+                    return RedirectToAction(nameof(Index));
+                }
+
                 employeeViewModel.Departments = _departmentService.GetAll();
                 return View(employeeViewModel);
             }

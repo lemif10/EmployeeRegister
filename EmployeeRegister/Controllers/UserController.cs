@@ -61,7 +61,7 @@ namespace EmployeeRegister.Controllers
         {
             User user = _userService.Get(id);
             
-            return View(new UserViewModel
+            return View(new UserEditViewModel
             {
                 Email = user.Email,
                 Login = user.Login,
@@ -71,19 +71,24 @@ namespace EmployeeRegister.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(UserViewModel userViewModel, int id)
+        public IActionResult Edit(UserEditViewModel userEditViewModel, int id)
         {
-            _userService.Edit(new User
+            if (ModelState.IsValid)
             {
-                Id = id,
-                Email = userViewModel.Email,
-                Login = userViewModel.Login,
-                Role = (int)userViewModel.Role,
-            });
-                
-            _logger.Information($"{User.Identity.Name}: edit user {_userService.Get(id).Email}");
-                
-            return RedirectToAction(nameof(Index));
+                _userService.Edit(new User
+                {
+                    Id = id,
+                    Email = userEditViewModel.Email,
+                    Login = userEditViewModel.Login,
+                    Role = (int)userEditViewModel.Role,
+                });
+
+                _logger.Information($"{User.Identity.Name}: edit user {_userService.Get(id).Email}");
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(userEditViewModel);
         }
         
         public IActionResult Delete(int id)

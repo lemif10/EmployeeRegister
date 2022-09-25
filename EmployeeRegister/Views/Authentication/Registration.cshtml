@@ -9,31 +9,34 @@
 
 <body>
 <form asp-controller="Authentication" asp-action="Registration" method="post">
-    <div class="form-group">
+        <div class="uiforvalidation">
+            @Html.ValidationSummary()
+        </div>
+    <p></p>
+        <div class="form-group text-center">
         <label class="control-label">Login: </label>
         @Html.TextBoxFor(x => x.Login, new {size=32})
-        <span asp-validation-for="Login" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">Email: </label>
-    @Html.TextBoxFor(x => x.Email, new {size=32})
-        <span asp-validation-for="Email" class="text-danger"></span>
+            @Html.TextBoxFor(x => x.Email, new {size=32})
     </div>
-    
-    <div class="form-group">
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">Password: </label>
-        @Html.TextBoxFor(x => x.Password, new {size=28})
-        <span asp-validation-for="Password" class="text-danger"></span>
+        @Html.TextBoxFor(x => x.Password, new {size=28, @type="Password"})
     </div>
-    
-    <div class="form-group">
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">Confirm password: </label>
-        @Html.TextBoxFor(x => x.ConfirmPassword, new {size=19})
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            @Html.TextBoxFor(x => x.ConfirmPassword, new {size=21, @type="Password"})
     </div>
-    
-    <input type="submit" value="Registration">
+        <p></p>
+        <div class="text-center">
+            <input class="btn btn-dark" type="submit" value="Registration">
+        </div>
+
 </form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

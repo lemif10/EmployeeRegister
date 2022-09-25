@@ -11,17 +11,22 @@
 
 <body>
 <form asp-controller="Authentication" asp-action="Login" method="post">
-    <div class="form-group text-center">
+        <div class="uiforvalidation">
+        @Html.ValidationSummary()
+    </div>
+        <p></p>
+        <div class="form-group text-center">
         <label >Login: </label>
-        @Html.EditorFor(x => x.Login)
-    </div>
-    <div class="form-group text-center" style="margin-right: 2%">
+            @Html.TextBoxFor(x => x.Login)
+        </div>
+        <p></p>
+        <div class="form-group text-center">
         <label>Password: </label>
-        @Html.EditorFor(x => x.Password)
-    </div>
-    
+            @Html.TextBoxFor(x => x.Password, new { size = 16, @type="password" })
+            </div>
+        <p></p>
     <div class="text-center">
-    <input type="submit" value="Login">
+            <input class="btn btn-dark" type="submit" value="Login">
     </div>
 </form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>

@@ -77,22 +77,22 @@ namespace EmployeeRegister.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(DepartmentViewModel departmentViewModel, int id)
         {
-            if (ModelState.IsValid)
-            {
-                _departmentService.Edit(new Department
-                {
-                    Id = id,
-                    Name = departmentViewModel.Name,
-                    PhoneNumber = departmentViewModel.PhoneNumber,
-                    Address = departmentViewModel.Address,
-                    Description = departmentViewModel.Description
-                });
-                
-                return RedirectToAction(nameof(Index));
-            }
-
             try
             {
+                if (ModelState.IsValid)
+                {
+                    _departmentService.Edit(new Department
+                    {
+                        Id = id,
+                        Name = departmentViewModel.Name,
+                        PhoneNumber = departmentViewModel.PhoneNumber,
+                        Address = departmentViewModel.Address,
+                        Description = departmentViewModel.Description
+                    });
+
+                    return RedirectToAction(nameof(Index));
+                }
+
                 return View(departmentViewModel);
             }
             catch

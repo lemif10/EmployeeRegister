@@ -6,6 +6,7 @@ namespace EmployeeRegister.ViewModels
     public class UserViewModel
     {
         [Required]
+        [EmailAddress]
         [DataType(DataType.EmailAddress)]
         [MinLength(5)]
         [StringLength(100)]

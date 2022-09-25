@@ -14,59 +14,59 @@
 
 <body>
 <form asp-controller="Employee" asp-action="Create" method="post">
-
-    <div class="form-group">
+        <div class="uiforvalidation">
+            @Html.ValidationSummary()
+        </div>
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">FullName: </label>
         @Html.TextBoxFor(x => x.FullName, new {size=28})
-        <span asp-validation-for="FullName" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">Address: </label>
         @Html.TextBoxFor(x => x.Address, new {size=29})
-        <span asp-validation-for="Address" class="text-danger"></span>
     </div>
-
-    <div class="form-group">
-        <label class="control-label">FamilyStatus: </label>
-        @Html.DropDownListFor(x => x.FamilyStatus,
-            new SelectList(Enum.GetNames(typeof(FamilyStatus))))
-    </div>
-
-    <div class="form-group">
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">Work experience: </label>
-        @Html.EditorFor(x => x.WorkExperience)
-        <span asp-validation-for="WorkExperience" class="text-danger"></span>
+            @Html.TextBoxFor(x => x.WorkExperience)
     </div>
-
+       
     @if (User.IsInRole("Admin"))
     {
-        <div class="form-group">
+            <p></p>
+            <div class="form-group text-center">
             <label class="control-label">Salary: </label>
             @Html.TextBoxFor(x => x.Salary, new {size=30})
-            <span asp-validation-for="Salary" class="text-danger"></span>
         </div>
     }
-
-    <div class="form-group">
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">PhoneNumber: </label>
-        @Html.TextBoxFor(x => x.ContactViewModel.PhoneNumber, new {size=21})
-        <span asp-validation-for="ContactViewModel.PhoneNumber" class="text-danger"></span>
+        @Html.TextBoxFor(x => x.ContactViewModel.PhoneNumber, new {size=23})
     </div>
-
-    <div class="form-group">
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">Email: </label>
-        @Html.TextBoxFor(x => x.ContactViewModel.Email, new {size=30})
-        <span asp-validation-for="ContactViewModel.Email" class="text-danger"></span>
+        @Html.TextBoxFor(x => x.ContactViewModel.Email, new {size=31})
     </div>
-
-    <div class="form-group">
+        <p></p>
+        <div class="form-group text-center">
+            <label class="control-label">FamilyStatus: </label>
+            @Html.DropDownListFor(x => x.FamilyStatus,
+            new SelectList(Enum.GetNames(typeof(FamilyStatus))))
+        </div>
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">Department: </label>
         @Html.DropDownListFor(x => x.Department.Id,
             new SelectList(Model.Departments, "Id", "Name"))
     </div>
-
-    <input type="submit" value="Create">
+        <p></p>
+        <div class="form-group text-center">
+            <input class="btn btn-dark" type="submit" value="Create">
+    </div>
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
