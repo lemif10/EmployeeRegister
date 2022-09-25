@@ -18,6 +18,7 @@ namespace EmployeeRegister.BusinessLogic.Services
         {
             _userRepository = userRepository;
             _logger = logger;
+            var ff = 1;
         }
 
         public bool IsLogin(string login, string password, out int id)

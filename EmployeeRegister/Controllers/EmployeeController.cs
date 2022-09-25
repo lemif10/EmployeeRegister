@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EmployeeRegister.BusinessLogic.Azure;
 using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.Common.Enums;
 using EmployeeRegister.Common.Models;
@@ -17,14 +16,11 @@ namespace EmployeeRegister.Controllers
         private readonly IDepartmentService _departmentService;
         private readonly IContactService _contactService;
 
-        private readonly IAzureService _azureService;
-
         public EmployeeController(IEmployeeService employeeService,
-            IDepartmentService departmentService, IContactService contactService, IAzureService azureService)
+            IDepartmentService departmentService, IContactService contactService)
         {
             _departmentService = departmentService;
             _contactService = contactService;
-            _azureService = azureService;
             _employeeService = employeeService;
         }
         
@@ -38,17 +34,13 @@ namespace EmployeeRegister.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(EmployeeViewModel employeeViewModel)
+        public IActionResult Create(EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
-                List<EmployeeViewModel> employeeViewModels = new List<EmployeeViewModel>();
-                List<string> imageUrls = await _azureService.GetImageUrls();
-
                 _employeeService.Create(new Employee
                 {
                     Address = employeeViewModel.Address,
-                    Photo = imageUrls[new Random().Next(0, imageUrls.Count)],
                     DepartmentId = employeeViewModel.Department.Id,
                     FamilyStatus = (int)employeeViewModel.FamilyStatus,
                     FullName = employeeViewModel.FullName,
@@ -89,8 +81,7 @@ namespace EmployeeRegister.Controllers
             return View(new EmployeeViewModel
             {
                 FullName = employee.FullName,
-                Photo = employee.Photo,
-                    Address = employee.Address,
+                Address = employee.Address,
                 ContactViewModel = contactViewModel,
                 Department = _departmentService.Get(employee.DepartmentId),
                 FamilyStatus = (FamilyStatus)employee.FamilyStatus,
@@ -115,7 +106,6 @@ namespace EmployeeRegister.Controllers
                 employeeViewModels.Add(new EmployeeViewModel
                 {
                     Id = employee.Id,
-                    Photo = employee.Photo,
                     FullName = employee.FullName,
                     Address = employee.Address,
                     ContactViewModel = contactViewModel,
@@ -148,7 +138,6 @@ namespace EmployeeRegister.Controllers
                 employeeViewModels.Add(new EmployeeViewModel
                 {
                     Id = employee.Id,
-                    Photo = employee.Photo,
                     FullName = employee.FullName,
                     Address = employee.Address,
                     ContactViewModel = contactViewModel,

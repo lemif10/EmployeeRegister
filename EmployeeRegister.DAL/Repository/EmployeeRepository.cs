@@ -39,7 +39,6 @@ namespace EmployeeRegister.DAL.Repository
                             employees.Add(new Employee()
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
-                                Photo = reader["Photo"].ToString(),
                                 FullName = reader["FullName"].ToString(),
                                 Address = reader["Address"].ToString(),
                                 FamilyStatus = Convert.ToInt32(reader["FamilyStatus"]),
@@ -80,7 +79,6 @@ namespace EmployeeRegister.DAL.Repository
                             return new Employee
                             {
                                 Id = Convert.ToInt32(reader["Id"]),
-                                Photo = reader["Photo"].ToString(),
                                 FullName = reader["FullName"].ToString(),
                                 Address = reader["Address"].ToString(),
                                 FamilyStatus = Convert.ToInt32(reader["FamilyStatus"]),
@@ -101,13 +99,11 @@ namespace EmployeeRegister.DAL.Repository
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
             {
                 var query = 
-                    "INSERT INTO Employees (FullName, Photo, DepartmentId, Address, FamilyStatus, WorkExperience, Salary) VALUES (@FullName, @Photo, @DepartmentId, @Address, @FamilyStatus, @WorkExperience, @Salary)";
+                    "INSERT INTO Employees (FullName, DepartmentId, Address, FamilyStatus, WorkExperience, Salary) VALUES (@FullName, @DepartmentId, @Address, @FamilyStatus, @WorkExperience, @Salary)";
 
                 var command = new SqlCommand(query, connection);
 
                 command.Parameters.AddWithValue("FullName", employee.FullName);
-
-                command.Parameters.AddWithValue("Photo", employee.Photo);
 
                 command.Parameters.Add(new SqlParameter("DepartmentId", SqlDbType.Int)
                 {

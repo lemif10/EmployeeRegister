@@ -1,10 +1,6 @@
-using System;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Azure.Identity;
-using EmployeeRegister.BusinessLogic.Azure;
-using Microsoft.Extensions.Configuration;
-
 
 namespace EmployeeRegister
 {
@@ -17,13 +13,7 @@ namespace EmployeeRegister
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-.ConfigureAppConfiguration((context, config) =>
-{
-var keyVaultEndpoint = new Uri(Environment.GetEnvironmentVariable("VaultUri"));
-config.AddAzureKeyVault(
-keyVaultEndpoint,
-new DefaultAzureCredential());
-})
+                .ConfigureAppConfiguration((context, config) => { })
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }

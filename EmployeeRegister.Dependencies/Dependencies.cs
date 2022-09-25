@@ -1,5 +1,4 @@
-﻿using EmployeeRegister.BusinessLogic.Azure;
-using EmployeeRegister.BusinessLogic.Interfaces;
+﻿using EmployeeRegister.BusinessLogic.Interfaces;
 using EmployeeRegister.BusinessLogic.Services;
 using EmployeeRegister.DAL.Connection;
 using EmployeeRegister.DAL.Interfaces;
@@ -17,12 +16,6 @@ namespace EmployeeRegister.Dependencies
             {
                 ConnectionString = configuration.GetConnectionString("DefaultConnection")
             });
-
-            services.AddSingleton(new AzureSettings
-            {
-                ConnectionString = configuration.GetSection("AzureSettings").GetSection("ConnectionString").Value,
-                ImageContainerName = configuration.GetSection("AzureSettings").GetSection("ImageContainerName").Value
-            });
         }
 
         public static void AddIRepository(this IServiceCollection services)
@@ -36,7 +29,6 @@ namespace EmployeeRegister.Dependencies
         
         public static void AddIService(this IServiceCollection services)
         {
-            services.AddTransient<IAzureService, AzureService>();
             services.AddTransient<IEmployeeService, EmployeeService>();
             services.AddTransient<IDepartmentService, DepartmentService>();
             services.AddTransient<IContactService, ContactService>();

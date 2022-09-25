@@ -58,7 +58,7 @@ namespace EmployeeRegister.DAL.Repository
 
                 command.Parameters.AddWithValue("PhoneNumber", department.PhoneNumber);
 
-                command.Parameters.AddWithValue("AddressD", department.Address);
+                command.Parameters.AddWithValue("Address", department.Address);
 
                 command.Parameters.AddWithValue("Description", department.Description);
 

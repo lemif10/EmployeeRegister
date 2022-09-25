@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using EmployeeRegister.BusinessLogic.Services;
 using EmployeeRegister.Common.Models;
 
 namespace EmployeeRegister.BusinessLogic.Interfaces
