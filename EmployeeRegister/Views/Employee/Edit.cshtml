@@ -29,14 +29,8 @@
     </div>
         <p></p>
         <div class="form-group text-center">
-        <label class="control-label">FamilyStatus: </label>
-        @Html.DropDownListFor(x => x.FamilyStatus,
-            new SelectList(Enum.GetNames(typeof(FamilyStatus))))
-    </div>
-        <p></p>
-        <div class="form-group text-center">
         <label class="control-label">Work experience: </label>
-        @Html.EditorFor(x => x.WorkExperience)
+            @Html.TextBoxFor(x => x.WorkExperience, new {size=21})
     </div>
 
     @if (User.IsInRole("Admin"))
@@ -59,13 +53,19 @@
     </div>
         <p></p>
         <div class="form-group text-center">
+            <label class="control-label">Family Status: </label>
+            @Html.DropDownListFor(x => x.FamilyStatus,
+            new SelectList(Enum.GetNames(typeof(FamilyStatus))))
+        </div>
+        <p></p>
+        <div class="form-group text-center">
         <label class="control-label">Department: </label>
         @Html.DropDownListFor(x => x.Department.Id,
             new SelectList(Model.Departments, "Id", "Name"))
     </div>
         <p></p>
         <div class="form-group text-center">
-    <input type="submit" value="Edit">
+            <input class="btn btn-dark" type="submit" value="Edit">
     </div>
 </form>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>

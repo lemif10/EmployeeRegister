@@ -30,7 +30,7 @@
         <p></p>
         <div class="form-group text-center">
         <label class="control-label">Work experience: </label>
-            @Html.TextBoxFor(x => x.WorkExperience)
+            @Html.TextBoxFor(x => x.WorkExperience, new {size=21})
     </div>
        
     @if (User.IsInRole("Admin"))
@@ -53,7 +53,7 @@
     </div>
         <p></p>
         <div class="form-group text-center">
-            <label class="control-label">FamilyStatus: </label>
+            <label class="control-label">Family Status: </label>
             @Html.DropDownListFor(x => x.FamilyStatus,
             new SelectList(Enum.GetNames(typeof(FamilyStatus))))
         </div>
