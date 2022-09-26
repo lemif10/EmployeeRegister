@@ -16,7 +16,43 @@ namespace EmployeeRegister.DAL.Repository
         {
             _connectionSettings = connectionSettings;
         }
-        
+
+        public int GetUserIdByAuth(string login, string password)
+        {
+            using (var connection = new SqlConnection(_connectionSettings.ConnectionString))
+            {
+                var query =
+                    "SELECT * FROM AppUsers WHERE Login=@Login and Password=@Password";
+
+                var command = new SqlCommand(query, connection);
+
+                command.Parameters.Add(new SqlParameter("Login", SqlDbType.NVarChar)
+                {
+                    Value = login
+                });
+
+                command.Parameters.Add(new SqlParameter("Password", SqlDbType.NVarChar)
+                {
+                    Value = password
+                });
+
+                command.Connection.Open();
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            return Convert.ToInt32(reader["Id"]);
+                        }
+                    }
+                }
+
+                return -1;
+            }
+        }
+
         public void Create(User user)
         {
             using (var connection = new SqlConnection(_connectionSettings.ConnectionString))

@@ -15,5 +15,7 @@ namespace EmployeeRegister.DAL.Interfaces
         void Edit(User user);
 
         void Create(User user);
+
+        int GetUserIdByAuth(string login, string password);
     }
 }

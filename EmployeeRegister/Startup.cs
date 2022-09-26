@@ -1,4 +1,3 @@
-using System.Net.Mime;
 using EmployeeRegister.Dependencies;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;

@@ -11,12 +11,6 @@
       "suggestion": "true",
       "type": "mssql",
       "connectionId": "ConnectionStrings:DefaultConnection"
-    },
-    "storage1": {
-      "ignored": "true",
-      "suggestion": "true",
-      "type": "storage",
-      "connectionId": "AzureSettings:ConnectionString"
     }
   }
 }

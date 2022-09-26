@@ -38,7 +38,7 @@ namespace EmployeeRegister.Controllers
         public async Task<IActionResult> Login(UserLoginViewModel userLoginViewModel)
         {
             if (ModelState.IsValid)
-            {
+            {               
                 if (_authService.IsLogin(userLoginViewModel.Login, userLoginViewModel.Password, out int id))
                 {
                     User user = _userService.Get(id);

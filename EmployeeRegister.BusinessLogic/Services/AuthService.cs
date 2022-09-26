@@ -18,22 +18,16 @@ namespace EmployeeRegister.BusinessLogic.Services
         {
             _userRepository = userRepository;
             _logger = logger;
-            var ff = 1;
         }
 
         public bool IsLogin(string login, string password, out int id)
         {
-            id = -1;
-            
-            foreach (User user in _userRepository.GetAll())
+            id = _userRepository.GetUserIdByAuth(login,
+                Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(password))));
+
+            if (id > -1)
             {
-                if (user.Login == login &&
-                    user.Password == Convert.ToBase64String(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(password))))
-                {
-                    id = user.Id;
-                    
-                    return true;
-                }
+                return true;
             }
             
             return false;
