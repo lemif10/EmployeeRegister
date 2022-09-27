@@ -11,7 +11,6 @@ namespace EmployeeRegister.BusinessLogic.Services
     public class AuthService : IAuthService
     {
         private readonly IUserRepository _userRepository;
-
         private readonly ILogger _logger;
 
         public AuthService(IUserRepository userRepository, ILogger logger)

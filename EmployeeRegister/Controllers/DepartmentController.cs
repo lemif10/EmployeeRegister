@@ -30,27 +30,27 @@ namespace EmployeeRegister.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(DepartmentViewModel departmentViewModel)
         {
-            if (ModelState.IsValid)
-            {
-                _departmentService.Create(new Department
-                {
-                    Name = departmentViewModel.Name,
-                    Address = departmentViewModel.Address,
-                    PhoneNumber = departmentViewModel.PhoneNumber,
-                    Description = departmentViewModel.Description
-                });
-            
-                return RedirectToAction(nameof(Index));
-            }
-
             try
             {
-                return View(departmentViewModel);
+                if (ModelState.IsValid)
+                {
+                    _departmentService.Create(new Department
+                    {
+                        Name = departmentViewModel.Name,
+                        Address = departmentViewModel.Address,
+                        PhoneNumber = departmentViewModel.PhoneNumber,
+                        Description = departmentViewModel.Description
+                    });
+
+                    return RedirectToAction(nameof(Index));
+                }                       
             }
             catch
             {
-                return View();
+                return View(departmentViewModel);
             }
+
+            return View(departmentViewModel);
         }
         
         public IActionResult Delete(int id)
